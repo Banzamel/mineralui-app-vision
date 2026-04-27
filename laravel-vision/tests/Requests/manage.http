@@ -1,0 +1,16 @@
+### ============================================================
+### MANAGE (Self)
+### ============================================================
+
+### Get Me
+GET {{base_api_url}}/manage/me
+Authorization: Bearer {{access_token}}
+
+### Update Me
+PUT {{base_api_url}}/manage/me
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Admin User Updated"
+}

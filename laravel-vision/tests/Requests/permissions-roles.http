@@ -1,0 +1,39 @@
+### ============================================================
+### ADMINISTRATION / PERMISSIONS
+### ============================================================
+
+### Get Permissions (grouped by module)
+GET {{base_api_url}}/administration/permissions
+Authorization: Bearer {{access_token}}
+
+### ============================================================
+### ADMINISTRATION / ROLES
+### ============================================================
+
+### List Roles
+GET {{base_api_url}}/administration/roles
+Authorization: Bearer {{access_token}}
+
+### Create Role
+POST {{base_api_url}}/administration/roles
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Ochrona",
+  "permissions": ["users.view", "cameras.view", "albums.view", "photos.view"]
+}
+
+### Update Role
+PUT {{base_api_url}}/administration/roles/2
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Monitoring",
+  "permissions": ["cameras.view", "cameras.manage", "albums.view", "albums.delete", "photos.view"]
+}
+
+### Delete Role
+DELETE {{base_api_url}}/administration/roles/4
+Authorization: Bearer {{access_token}}

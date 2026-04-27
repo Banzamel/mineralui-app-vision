@@ -1,0 +1,24 @@
+:root {
+    --mineral-primary-rgb: 68, 231, 218;
+    --mineral-news-rgb: 68, 231, 218;
+    --mineral-dark-rgb: 4, 6, 12;
+    --mineral-dark-light-rgb: 10, 14, 24;
+    --mineral-surface-rgb: 12, 18, 30;
+    --mineral-surface-contrast: rgba(6, 10, 18, 1);
+    --mineral-input-bg: rgba(17, 24, 39, 1);
+    --mineral-page-bg: rgba(3, 5, 10, 1);
+    --mineral-page-text: rgba(232, 239, 244, 1);
+    --mineral-text-rgb: 232, 239, 244;
+    --mineral-text-heading: rgba(247, 250, 252, 0.98);
+    --mineral-border: rgba(255, 255, 255, 0.12);
+    --mineral-border-hover: rgba(255, 255, 255, 0.2);
+
+    --mineral-radius-sm: 14px;
+    --mineral-radius-md: 18px;
+    --mineral-radius-lg: 24px;
+
+    --mineral-font-family-heading:
+        'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, sans-serif;
+    --mineral-font-family-mono: 'JetBrains Mono', 'Cascadia Mono', 'Fira Code', monospace;
+}

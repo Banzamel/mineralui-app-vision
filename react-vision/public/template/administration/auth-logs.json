@@ -1,0 +1,18 @@
+{
+    "data": {
+        "daily": [
+            {"date": "2026-04-16", "count": 4},
+            {"date": "2026-04-17", "count": 6},
+            {"date": "2026-04-18", "count": 3},
+            {"date": "2026-04-19", "count": 5},
+            {"date": "2026-04-20", "count": 8},
+            {"date": "2026-04-21", "count": 7},
+            {"date": "2026-04-22", "count": 5}
+        ],
+        "totals": {
+            "users": 5,
+            "active": 4,
+            "logins_last_7_days": 38
+        }
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "data": [
+        {
+            "id": "act_me_1",
+            "type": "login",
+            "ip": "10.0.1.14",
+            "description": "Zalogowano przez Chrome na Windows",
+            "at": "2026-04-23T01:58:00Z"
+        },
+        {
+            "id": "act_me_2",
+            "type": "avatar_changed",
+            "ip": "10.0.1.14",
+            "description": "Zaktualizowano zdjecie profilowe",
+            "at": "2026-04-22T19:11:00Z"
+        },
+        {
+            "id": "act_me_3",
+            "type": "album_created",
+            "ip": "10.0.1.14",
+            "description": "Utworzono album \"Ogrod - kwiecien 2026\"",
+            "at": "2026-04-22T14:32:00Z"
+        },
+        {
+            "id": "act_me_4",
+            "type": "photo_uploaded",
+            "ip": "10.0.1.14",
+            "description": "Dodano 48 zdjec do albumu \"Ogrod - kwiecien 2026\"",
+            "at": "2026-04-22T14:40:00Z"
+        },
+        {
+            "id": "act_me_5",
+            "type": "password_changed",
+            "ip": "10.0.1.14",
+            "description": "Zmieniono haslo",
+            "at": "2026-04-20T09:22:00Z"
+        },
+        {
+            "id": "act_me_6",
+            "type": "profile_updated",
+            "ip": "10.0.1.14",
+            "description": "Zaktualizowano dane profilu",
+            "at": "2026-04-19T16:05:00Z"
+        },
+        {
+            "id": "act_me_7",
+            "type": "login",
+            "ip": "192.168.1.44",
+            "description": "Zalogowano przez Safari na iPhone",
+            "at": "2026-04-18T07:30:00Z"
+        },
+        {
+            "id": "act_me_8",
+            "type": "logout",
+            "ip": "10.0.1.14",
+            "description": "Wylogowano",
+            "at": "2026-04-17T22:18:00Z"
+        }
+    ]
+}

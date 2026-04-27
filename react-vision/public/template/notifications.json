@@ -1,0 +1,84 @@
+{
+    "data": [
+        {
+            "id": "ntf_001",
+            "type": "motion_detected",
+            "severity": "info",
+            "title": "Wykryto ruch",
+            "message": "Kamera dom-front zarejestrowala ruch przed brama wjazdowa.",
+            "link": "/cameras/dom-front",
+            "read": false,
+            "created_at": "2026-04-23T02:14:00Z"
+        },
+        {
+            "id": "ntf_002",
+            "type": "camera_offline",
+            "severity": "error",
+            "title": "Kamera offline",
+            "message": "Kamera dom-ogrodek nie odpowiada od ponad 5 minut.",
+            "link": "/cameras/dom-ogrodek",
+            "read": false,
+            "created_at": "2026-04-23T01:42:00Z"
+        },
+        {
+            "id": "ntf_003",
+            "type": "storage_warning",
+            "severity": "warning",
+            "title": "Dysk zapelniony w 82%",
+            "message": "Pozostalo 540 GB wolnego miejsca. Rozwaz archiwizacje starszych albumow.",
+            "link": "/storage",
+            "read": false,
+            "created_at": "2026-04-22T21:05:00Z"
+        },
+        {
+            "id": "ntf_004",
+            "type": "backup_completed",
+            "severity": "success",
+            "title": "Backup ukonczony",
+            "message": "Zarchiwizowano 1284 zdjec z ostatnich 24 godzin.",
+            "link": null,
+            "read": false,
+            "created_at": "2026-04-22T04:00:00Z"
+        },
+        {
+            "id": "ntf_005",
+            "type": "album_shared",
+            "severity": "info",
+            "title": "Udostepniono album",
+            "message": "Anna Nowak udostepnila Ci album \"Ogrod - kwiecien 2026\".",
+            "link": "/albums/ogrod-kwiecien-2026",
+            "read": true,
+            "created_at": "2026-04-21T18:22:00Z"
+        },
+        {
+            "id": "ntf_006",
+            "type": "system_alert",
+            "severity": "warning",
+            "title": "Planowana przerwa techniczna",
+            "message": "Serwer bedzie niedostepny 2026-04-25 w godzinach 02:00-03:00.",
+            "link": null,
+            "read": true,
+            "created_at": "2026-04-20T10:00:00Z"
+        },
+        {
+            "id": "ntf_007",
+            "type": "backup_failed",
+            "severity": "error",
+            "title": "Backup nieudany",
+            "message": "Nie udalo sie zapisac kopii 12 zdjec z powodu bledu dysku.",
+            "link": "/system/backups",
+            "read": true,
+            "created_at": "2026-04-19T04:15:00Z"
+        },
+        {
+            "id": "ntf_008",
+            "type": "camera_online",
+            "severity": "success",
+            "title": "Kamera dostepna",
+            "message": "Kamera dom-front jest ponownie online po krotkiej przerwie.",
+            "link": "/cameras/dom-front",
+            "read": true,
+            "created_at": "2026-04-18T11:48:00Z"
+        }
+    ]
+}

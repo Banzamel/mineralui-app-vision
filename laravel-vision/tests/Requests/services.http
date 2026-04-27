@@ -1,0 +1,37 @@
+### ============================================================
+### MANAGEMENT / SERVICES
+### ============================================================
+
+### List Services
+GET {{base_api_url}}/management/services
+Authorization: Bearer {{access_token}}
+
+### Get Service
+GET {{base_api_url}}/management/services/1
+Authorization: Bearer {{access_token}}
+
+### Create Service
+POST {{base_api_url}}/management/services
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Premium Package",
+  "limit": 20,
+  "description": "20 lessons per month with materials",
+  "price": 299.99
+}
+
+### Update Service
+PUT {{base_api_url}}/management/services/1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Basic Service - Updated",
+  "price": 109.99
+}
+
+### Delete Service
+DELETE {{base_api_url}}/management/services/1
+Authorization: Bearer {{access_token}}

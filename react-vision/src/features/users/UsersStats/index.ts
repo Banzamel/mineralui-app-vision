@@ -1,0 +1,5 @@
+export {LoginsChartWidget} from './LoginsChartWidget'
+export {LoginsTodayWidget} from './LoginsTodayWidget'
+export {RolesCountWidget} from './RolesCountWidget'
+export {ScopedUsersWidget} from './ScopedUsersWidget'
+export {UserCountWidget} from './UserCountWidget'

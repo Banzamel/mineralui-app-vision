@@ -1,0 +1,11 @@
+{
+    "data": {
+        "users": ["users.view", "users.create", "users.update", "users.delete"],
+        "roles": ["roles.view", "roles.manage"],
+        "cameras": ["cameras.view", "cameras.create", "cameras.update", "cameras.delete"],
+        "albums": ["albums.view", "albums.delete"],
+        "photos": ["photos.view", "photos.delete"],
+        "buildings": ["buildings.view", "buildings.manage"],
+        "settings": ["settings.view", "settings.manage"]
+    }
+}

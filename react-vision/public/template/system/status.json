@@ -1,0 +1,19 @@
+{
+    "data": {
+        "api": {
+            "status": "ok",
+            "latency_ms": 14
+        },
+        "disk": {
+            "used_bytes": 2890789912576,
+            "total_bytes": 3500000000000,
+            "percent": 82
+        },
+        "queue": {
+            "pending": 3,
+            "processing": 1,
+            "failed": 0
+        },
+        "version": "0.1.0"
+    }
+}

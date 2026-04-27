@@ -1,0 +1,59 @@
+{
+    "data": [
+        {
+            "id": "sess_1a",
+            "user_id": 1,
+            "ip": "10.0.1.14",
+            "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0",
+            "device": "Chrome na Windows",
+            "location": "Warszawa, PL",
+            "last_active_at": "2026-04-22T08:40:00Z",
+            "created_at": "2026-04-22T08:14:00Z",
+            "current": true
+        },
+        {
+            "id": "sess_1b",
+            "user_id": 1,
+            "ip": "192.168.1.44",
+            "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_3) Safari/605.1",
+            "device": "Safari na iPhone",
+            "location": "Warszawa, PL",
+            "last_active_at": "2026-04-21T19:02:00Z",
+            "created_at": "2026-04-18T07:30:00Z",
+            "current": false
+        },
+        {
+            "id": "sess_2a",
+            "user_id": 2,
+            "ip": "10.0.1.21",
+            "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64) Firefox/125.0",
+            "device": "Firefox na Windows",
+            "location": "Krakow, PL",
+            "last_active_at": "2026-04-21T18:45:00Z",
+            "created_at": "2026-04-21T09:10:00Z",
+            "current": false
+        },
+        {
+            "id": "sess_3a",
+            "user_id": 3,
+            "ip": "10.0.1.33",
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4) Safari/605.1",
+            "device": "Safari na macOS",
+            "location": "Gdansk, PL",
+            "last_active_at": "2026-04-20T22:12:00Z",
+            "created_at": "2026-04-20T08:05:00Z",
+            "current": false
+        },
+        {
+            "id": "sess_5a",
+            "user_id": 5,
+            "ip": "10.0.1.55",
+            "user_agent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/124.0",
+            "device": "Chrome na Linux",
+            "location": "Poznan, PL",
+            "last_active_at": "2026-04-22T07:01:00Z",
+            "created_at": "2026-04-22T07:01:00Z",
+            "current": false
+        }
+    ]
+}

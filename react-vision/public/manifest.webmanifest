@@ -1,0 +1,26 @@
+{
+    "name": "Vision",
+    "short_name": "Vision",
+    "description": "Vision — multi-tenant SaaS for managing buildings, cameras and daily photo albums.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#0b1220",
+    "theme_color": "#44e7da",
+    "categories": ["productivity", "utilities"],
+    "icons": [
+        {
+            "src": "/favicon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/favicon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

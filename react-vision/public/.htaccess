@@ -1,0 +1,36 @@
+# Vision SPA fallback — kopiowane z react-vision/public/ do dist/ przez Vite,
+# stamtąd do prod/public_html/ przez build.sh. Apache (HestiaCP backend)
+# czyta to z DocumentRoot domeny.
+#
+# Każdy URL który nie odpowiada plikowi/katalogowi w public_html wraca
+# index.html — React Router wtedy obsługuje routing po stronie klienta.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Pliki / katalogi serwujemy as-is (assets, favicons, sw.js, manifest itp.)
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Reszta → React index.html (SPA)
+    RewriteRule ^ /index.html [L]
+</IfModule>
+
+# sw.js — service worker nie może być cache'owany, inaczej PWA nie zaktualizuje się
+# (nginx nadpisuje to swoim Cache-Control, ale zostawiamy jako fallback gdyby
+# kiedyś ten plik był serwowany przez Apache zamiast nginx).
+<Files "sw.js">
+    Header set Cache-Control "no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+</Files>
+
+<Files "manifest.webmanifest">
+    Header set Cache-Control "no-store, must-revalidate"
+</Files>
+
+<Files "index.html">
+    Header set Cache-Control "no-store, must-revalidate"
+</Files>

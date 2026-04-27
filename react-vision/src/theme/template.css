@@ -1,0 +1,73 @@
+/* MineralUI app shell template
+   Keep this file next to variables.css.
+   MThemeProvider toggles the .theme-light class on body or on a wrapper scope.
+*/
+
+@import url('./variables.css');
+
+:root {
+    color-scheme: dark;
+}
+
+.theme-light {
+    color-scheme: light;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--mineral-page-bg);
+    color: var(--mineral-page-text);
+    font-family: var(--mineral-font-family-sans, var(--mineral-font-family));
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+        background-color 180ms ease,
+        color 180ms ease;
+}
+
+#root {
+    min-height: 100vh;
+    background: var(--mineral-page-bg);
+    color: var(--mineral-page-text);
+}
+
+::selection {
+    background: rgba(var(--mineral-primary-rgb), 0.28);
+    color: var(--mineral-primary-contrast);
+}
+
+a {
+    color: var(--mineral-primary);
+    text-decoration-color: rgba(var(--mineral-primary-rgb), 0.35);
+    transition:
+        color 150ms ease,
+        text-decoration-color 150ms ease;
+}
+
+a:hover {
+    text-decoration-color: currentColor;
+}
+
+body.theme-light,
+.theme-light body {
+    background: var(--mineral-page-bg);
+    color: var(--mineral-page-text);
+}
+
+body.theme-light #root,
+.theme-light #root {
+    background: var(--mineral-page-bg);
+    color: var(--mineral-page-text);
+}

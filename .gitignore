@@ -1,0 +1,62 @@
+# ── IDE / OS ─────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Workspace / local agent state ────────────────────────
+.claude/
+tmp/
+*.log
+
+# ── Env files (everywhere) ───────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Node (Laravel + React) ───────────────────────────────
+node_modules/
+.npmrc
+npm-debug.log*
+yarn-error.log
+yarn-debug.log*
+pnpm-debug.log*
+
+# ── Private MineralUI Pro tarballs / local checkouts ─────
+mineralui-pro/
+**/mineralui-pro-*.tgz
+**/banzamel-mineralui-pro-*.tgz
+
+# ── Laravel ──────────────────────────────────────────────
+laravel-vision/vendor/
+laravel-vision/public/build/
+laravel-vision/public/hot
+laravel-vision/public/storage
+laravel-vision/storage/*.key
+laravel-vision/storage/app/private/*
+!laravel-vision/storage/app/private/.gitkeep
+laravel-vision/storage/app/public/*
+!laravel-vision/storage/app/public/.gitkeep
+laravel-vision/storage/logs/*
+!laravel-vision/storage/logs/.gitignore
+laravel-vision/bootstrap/cache/*.php
+laravel-vision/.phpunit.result.cache
+laravel-vision/.phpunit.cache/
+laravel-vision/auth.json
+
+# ── React (Vite) ─────────────────────────────────────────
+react-vision/dist/
+react-vision/.vite/
+react-vision/coverage/
+
+# ── Production deploy (build artifacts + scripts + configs) ─
+prod/
+
+# ── Docker volumes / runtime data ────────────────────────
+docker/data/
+docker/volumes/
+
+# ── Composer ─────────────────────────────────────────────
+composer.phar

@@ -1,0 +1,91 @@
+### ============================================================
+### FILE MANAGER
+### ============================================================
+
+### List Files (root directory)
+GET {{base_api_url}}/files
+Authorization: Bearer {{access_token}}
+
+### List Files (in directory)
+GET {{base_api_url}}/files?parent_id=1
+Authorization: Bearer {{access_token}}
+
+### Get File/Directory details
+GET {{base_api_url}}/files/1
+Authorization: Bearer {{access_token}}
+
+### Download File
+GET {{base_api_url}}/files/1/download
+Authorization: Bearer {{access_token}}
+
+### Create Directory
+POST {{base_api_url}}/files/directory
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Materialy szkoleniowe",
+  "parent_id": null,
+  "storage": "local"
+}
+
+### Create Subdirectory
+POST {{base_api_url}}/files/directory
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "English B2",
+  "parent_id": 1,
+  "storage": "local"
+}
+
+### Upload File
+POST {{base_api_url}}/files/upload
+Authorization: Bearer {{access_token}}
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="lesson01.pdf"
+Content-Type: application/pdf
+
+< ./files/lesson01.pdf
+--boundary
+Content-Disposition: form-data; name="path"
+
+/
+--boundary
+Content-Disposition: form-data; name="type"
+
+file
+--boundary
+Content-Disposition: form-data; name="storage"
+
+local
+--boundary
+Content-Disposition: form-data; name="parent_id"
+
+1
+--boundary--
+
+### Update Item (rename)
+PUT {{base_api_url}}/files/1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Materialy - zaktualizowane"
+}
+
+### Move Item to another directory
+PUT {{base_api_url}}/files/2
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "parent_id": 1
+}
+
+### Delete Item
+DELETE {{base_api_url}}/files/1
+Authorization: Bearer {{access_token}}

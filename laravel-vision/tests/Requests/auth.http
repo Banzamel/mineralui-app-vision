@@ -1,0 +1,75 @@
+### ============================================================
+### AUTH
+### ============================================================
+### Variables: {{base_auth_url}} (auth.localhost), {{base_api_url}} (api.localhost)
+### {{access_token}}, {{refresh_token}} — set by login response handler
+### Set in http-client.env.json
+
+### Login (Admin)
+POST {{base_auth_url}}/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "password",
+  "client": "Desktop Password Grant Client"
+}
+
+> {%
+    client.global.set("access_token", response.body.access_token);
+    client.global.set("refresh_token", response.body.refresh_token);
+    client.test("Status 200", function() {
+        client.assert(response.status === 200);
+    });
+    client.test("Has access_token", function() {
+        client.assert(response.body.access_token !== undefined);
+    });
+%}
+
+### Login (Lector)
+POST {{base_auth_url}}/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password",
+  "client": "Desktop Password Grant Client"
+}
+
+> {%
+    client.global.set("access_token", response.body.access_token);
+    client.global.set("refresh_token", response.body.refresh_token);
+%}
+
+### Refresh Token
+POST {{base_auth_url}}/refresh
+Content-Type: application/json
+
+{
+  "refresh_token": "{{refresh_token}}"
+}
+
+> {%
+    client.global.set("access_token", response.body.access_token);
+    client.global.set("refresh_token", response.body.refresh_token);
+%}
+
+### Logout
+POST {{base_auth_url}}/logout
+Authorization: Bearer {{access_token}}
+
+### ============================================================
+### AUTH / SOCIAL LOGIN
+### ============================================================
+
+### Social Login - Google (redirect to Google auth page)
+GET {{base_auth_url}}/social/google/redirect
+
+### Social Login - Facebook (redirect to Facebook auth page)
+GET {{base_auth_url}}/social/facebook/redirect
+
+### Social Callback - Google (called by Google after auth, returns tokens)
+# GET {{base_auth_url}}/social/google/callback?code=AUTH_CODE_FROM_GOOGLE
+
+### Social Callback - Facebook (called by Facebook after auth, returns tokens)
+# GET {{base_auth_url}}/social/facebook/callback?code=AUTH_CODE_FROM_FACEBOOK

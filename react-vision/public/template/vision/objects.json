@@ -1,0 +1,112 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "parent_id": null,
+            "name": "Blok Słoneczny",
+            "type": "block",
+            "address": "ul. Słoneczna 12, Warszawa",
+            "description": "Blok mieszkalny 10-piętrowy",
+            "main_photo": "https://picsum.photos/seed/block-1/640/400",
+            "depth": 0,
+            "created_at": "2025-09-12T10:15:00Z",
+            "cameras_count": 0
+        },
+        {
+            "id": 11,
+            "parent_id": 1,
+            "name": "Piętro 1",
+            "type": "apartment",
+            "address": "Piętro 1, klatka A",
+            "description": "Mieszkania 1-4",
+            "main_photo": null,
+            "depth": 1,
+            "created_at": "2025-09-12T10:20:00Z",
+            "cameras_count": 2
+        },
+        {
+            "id": 12,
+            "parent_id": 1,
+            "name": "Piętro 2",
+            "type": "apartment",
+            "address": "Piętro 2, klatka A",
+            "description": "Mieszkania 5-8",
+            "main_photo": null,
+            "depth": 1,
+            "created_at": "2025-09-12T10:22:00Z",
+            "cameras_count": 1
+        },
+        {
+            "id": 111,
+            "parent_id": 11,
+            "name": "Mieszkanie 3",
+            "type": "apartment",
+            "address": "Mieszkanie 3, p. 1",
+            "description": "Kowalski",
+            "main_photo": "https://picsum.photos/seed/apt-111/640/400",
+            "depth": 2,
+            "created_at": "2025-09-13T12:00:00Z",
+            "cameras_count": 1
+        },
+        {
+            "id": 2,
+            "parent_id": null,
+            "name": "Dom Nowak",
+            "type": "house",
+            "address": "ul. Lipowa 3, Pruszków",
+            "description": "Dom jednorodzinny",
+            "main_photo": "https://picsum.photos/seed/house-2/640/400",
+            "depth": 0,
+            "created_at": "2025-09-20T09:00:00Z",
+            "cameras_count": 3
+        },
+        {
+            "id": 3,
+            "parent_id": null,
+            "name": "Hangar Produkcyjny",
+            "type": "hangar",
+            "address": "ul. Przemysłowa 44, Łódź",
+            "description": "Hala 2000m2",
+            "main_photo": "https://picsum.photos/seed/hangar-3/640/400",
+            "depth": 0,
+            "created_at": "2025-10-01T08:30:00Z",
+            "cameras_count": 0
+        },
+        {
+            "id": 31,
+            "parent_id": 3,
+            "name": "Hala Główna",
+            "type": "other",
+            "address": "Sekcja A",
+            "description": "Linia produkcyjna",
+            "main_photo": null,
+            "depth": 1,
+            "created_at": "2025-10-01T08:35:00Z",
+            "cameras_count": 2
+        },
+        {
+            "id": 32,
+            "parent_id": 3,
+            "name": "Magazyn",
+            "type": "other",
+            "address": "Sekcja B",
+            "description": "Części zamienne",
+            "main_photo": null,
+            "depth": 1,
+            "created_at": "2025-10-01T08:40:00Z",
+            "cameras_count": 1
+        },
+        {
+            "id": 4,
+            "parent_id": null,
+            "name": "Garaż podziemny",
+            "type": "garage",
+            "address": "ul. Parkingowa 5, Warszawa",
+            "description": "3 poziomy",
+            "main_photo": "https://picsum.photos/seed/garage-4/640/400",
+            "depth": 0,
+            "created_at": "2025-10-14T11:00:00Z",
+            "cameras_count": 2
+        }
+    ]
+}

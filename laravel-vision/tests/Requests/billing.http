@@ -1,0 +1,23 @@
+### ============================================================
+### MANAGEMENT / BILLING (one per company, auto-created)
+### ============================================================
+
+### Get Billing
+GET {{base_api_url}}/management/billing
+Authorization: Bearer {{access_token}}
+
+### Update Billing
+PUT {{base_api_url}}/management/billing
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "tax_id": "PL1234567890",
+  "billing_address": "ul. Szkolna 15",
+  "billing_city": "Warszawa",
+  "billing_country": "PL",
+  "bank_name": "PKO BP",
+  "bank_account": "PL61109010140000071219812874",
+  "proforma_format": "FP/{NNN}/{MM}/{YYYY}",
+  "invoice_format": "FV/{NNN}/{MM}/{YYYY}"
+}

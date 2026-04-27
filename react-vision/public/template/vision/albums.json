@@ -1,0 +1,134 @@
+{
+    "data": [
+        {
+            "id": 10101,
+            "camera_id": 101,
+            "date": "2026-04-20",
+            "photos_count": 128,
+            "cover_photo": "https://picsum.photos/seed/alb-101-20/640/400"
+        },
+        {
+            "id": 10102,
+            "camera_id": 101,
+            "date": "2026-04-21",
+            "photos_count": 144,
+            "cover_photo": "https://picsum.photos/seed/alb-101-21/640/400"
+        },
+        {
+            "id": 10103,
+            "camera_id": 101,
+            "date": "2026-04-22",
+            "photos_count": 132,
+            "cover_photo": "https://picsum.photos/seed/alb-101-22/640/400"
+        },
+        {
+            "id": 10104,
+            "camera_id": 101,
+            "date": "2026-04-23",
+            "photos_count": 56,
+            "cover_photo": "https://picsum.photos/seed/alb-101-23/640/400"
+        },
+        {
+            "id": 10201,
+            "camera_id": 102,
+            "date": "2026-04-22",
+            "photos_count": 88,
+            "cover_photo": "https://picsum.photos/seed/alb-102-22/640/400"
+        },
+        {
+            "id": 10202,
+            "camera_id": 102,
+            "date": "2026-04-23",
+            "photos_count": 41,
+            "cover_photo": "https://picsum.photos/seed/alb-102-23/640/400"
+        },
+        {
+            "id": 20101,
+            "camera_id": 201,
+            "date": "2026-04-18",
+            "photos_count": 210,
+            "cover_photo": "https://picsum.photos/seed/alb-201-18/640/400"
+        },
+        {
+            "id": 20102,
+            "camera_id": 201,
+            "date": "2026-04-19",
+            "photos_count": 195,
+            "cover_photo": "https://picsum.photos/seed/alb-201-19/640/400"
+        },
+        {
+            "id": 20103,
+            "camera_id": 201,
+            "date": "2026-04-20",
+            "photos_count": 220,
+            "cover_photo": "https://picsum.photos/seed/alb-201-20/640/400"
+        },
+        {
+            "id": 20104,
+            "camera_id": 201,
+            "date": "2026-04-21",
+            "photos_count": 233,
+            "cover_photo": "https://picsum.photos/seed/alb-201-21/640/400"
+        },
+        {
+            "id": 20105,
+            "camera_id": 201,
+            "date": "2026-04-22",
+            "photos_count": 198,
+            "cover_photo": "https://picsum.photos/seed/alb-201-22/640/400"
+        },
+        {
+            "id": 20106,
+            "camera_id": 201,
+            "date": "2026-04-23",
+            "photos_count": 112,
+            "cover_photo": "https://picsum.photos/seed/alb-201-23/640/400",
+            "photos": [
+                {"id": 1, "album_id": 20106, "url": "https://picsum.photos/seed/p-201-23-1/1200/800", "thumbnail_url": "https://picsum.photos/seed/p-201-23-1/320/240", "captured_at": "2026-04-23T07:12:05Z"},
+                {"id": 2, "album_id": 20106, "url": "https://picsum.photos/seed/p-201-23-2/1200/800", "thumbnail_url": "https://picsum.photos/seed/p-201-23-2/320/240", "captured_at": "2026-04-23T07:34:22Z"},
+                {"id": 3, "album_id": 20106, "url": "https://picsum.photos/seed/p-201-23-3/1200/800", "thumbnail_url": "https://picsum.photos/seed/p-201-23-3/320/240", "captured_at": "2026-04-23T08:01:11Z"},
+                {"id": 4, "album_id": 20106, "url": "https://picsum.photos/seed/p-201-23-4/1200/800", "thumbnail_url": "https://picsum.photos/seed/p-201-23-4/320/240", "captured_at": "2026-04-23T08:44:57Z"},
+                {"id": 5, "album_id": 20106, "url": "https://picsum.photos/seed/p-201-23-5/1200/800", "thumbnail_url": "https://picsum.photos/seed/p-201-23-5/320/240", "captured_at": "2026-04-23T09:20:04Z"},
+                {"id": 6, "album_id": 20106, "url": "https://picsum.photos/seed/p-201-23-6/1200/800", "thumbnail_url": "https://picsum.photos/seed/p-201-23-6/320/240", "captured_at": "2026-04-23T10:03:33Z"},
+                {"id": 7, "album_id": 20106, "url": "https://picsum.photos/seed/p-201-23-7/1200/800", "thumbnail_url": "https://picsum.photos/seed/p-201-23-7/320/240", "captured_at": "2026-04-23T11:11:41Z"},
+                {"id": 8, "album_id": 20106, "url": "https://picsum.photos/seed/p-201-23-8/1200/800", "thumbnail_url": "https://picsum.photos/seed/p-201-23-8/320/240", "captured_at": "2026-04-23T12:02:18Z"},
+                {"id": 9, "album_id": 20106, "url": "https://picsum.photos/seed/p-201-23-9/1200/800", "thumbnail_url": "https://picsum.photos/seed/p-201-23-9/320/240", "captured_at": "2026-04-23T13:44:00Z"}
+            ]
+        },
+        {
+            "id": 20201,
+            "camera_id": 202,
+            "date": "2026-04-22",
+            "photos_count": 76,
+            "cover_photo": "https://picsum.photos/seed/alb-202-22/640/400"
+        },
+        {
+            "id": 20202,
+            "camera_id": 202,
+            "date": "2026-04-23",
+            "photos_count": 38,
+            "cover_photo": "https://picsum.photos/seed/alb-202-23/640/400"
+        },
+        {
+            "id": 30101,
+            "camera_id": 301,
+            "date": "2026-04-22",
+            "photos_count": 310,
+            "cover_photo": "https://picsum.photos/seed/alb-301-22/640/400"
+        },
+        {
+            "id": 30102,
+            "camera_id": 301,
+            "date": "2026-04-23",
+            "photos_count": 122,
+            "cover_photo": "https://picsum.photos/seed/alb-301-23/640/400"
+        },
+        {
+            "id": 40101,
+            "camera_id": 401,
+            "date": "2026-04-23",
+            "photos_count": 64,
+            "cover_photo": "https://picsum.photos/seed/alb-401-23/640/400"
+        }
+    ]
+}

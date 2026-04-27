@@ -1,0 +1,47 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Budynek glowny",
+            "addresses": [
+                {
+                    "id": 11,
+                    "name": "Pietro 1",
+                    "cameras": [
+                        {"id": 101, "name": "dom-front"},
+                        {"id": 102, "name": "dom-ogrodek"}
+                    ]
+                },
+                {
+                    "id": 12,
+                    "name": "Pietro 2",
+                    "cameras": [
+                        {"id": 103, "name": "balkon"},
+                        {"id": 104, "name": "korytarz"}
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Budynek B",
+            "addresses": [
+                {
+                    "id": 21,
+                    "name": "Mieszkanie 5",
+                    "cameras": [
+                        {"id": 201, "name": "wejscie"}
+                    ]
+                },
+                {
+                    "id": 22,
+                    "name": "Garaz",
+                    "cameras": [
+                        {"id": 211, "name": "brama"},
+                        {"id": 212, "name": "wnetrze"}
+                    ]
+                }
+            ]
+        }
+    ]
+}

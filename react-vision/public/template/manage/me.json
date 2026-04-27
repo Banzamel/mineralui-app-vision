@@ -1,0 +1,21 @@
+{
+    "data": {
+        "id": 1,
+        "name": "Rafal Polak",
+        "email": "admin@vision.local",
+        "avatar": null,
+        "active": true,
+        "roles": [{"id": 1, "name": "Admin"}],
+        "permissions": [
+            "users.view", "users.create", "users.update", "users.delete",
+            "roles.view", "roles.manage",
+            "cameras.view", "cameras.create", "cameras.update", "cameras.delete",
+            "albums.view", "albums.delete",
+            "photos.view", "photos.delete",
+            "buildings.view", "buildings.manage",
+            "settings.view", "settings.manage"
+        ],
+        "scopes": [{"type": "building", "id": 1}, {"type": "building", "id": 2}],
+        "last_login_at": "2026-04-22T08:14:00Z"
+    }
+}

@@ -1,0 +1,97 @@
+name: vision
+
+services:
+    mysql-vision:
+        image: mysql:8.3
+        container_name: mysql-vision
+        environment:
+            MYSQL_ROOT_PASSWORD: root_password
+            MYSQL_DATABASE: vision
+            MYSQL_USER: vision
+            MYSQL_PASSWORD: vision_password
+        volumes:
+            - mysql-data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            interval: 5s
+            timeout: 3s
+            retries: 30
+        restart: unless-stopped
+        mem_limit: 1g
+
+    redis-vision:
+        image: redis:7-alpine
+        container_name: redis-vision
+        command: ["redis-server", "--requirepass", "redis_password"]
+        volumes:
+            - redis-data:/data
+        ports:
+            - "6379:6379"
+        restart: unless-stopped
+        mem_limit: 256m
+
+    laravel-vision:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        container_name: laravel-vision
+        env_file: .env
+        volumes:
+            - ./laravel-vision:/app
+        ports:
+            - "8000:8000"
+        entrypoint: ["/usr/local/bin/laravel-init.sh"]
+        command: ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/laravel.conf"]
+        depends_on:
+            mysql-vision:
+                condition: service_healthy
+            redis-vision:
+                condition: service_started
+        restart: unless-stopped
+        mem_limit: 1g
+
+    reverb-vision:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        container_name: reverb-vision
+        env_file: .env
+        volumes:
+            - ./laravel-vision:/app
+        ports:
+            - "8080:8080"
+        command: ["php", "artisan", "reverb:start", "--host=0.0.0.0", "--port=8080"]
+        depends_on:
+            laravel-vision:
+                condition: service_started
+        restart: unless-stopped
+        mem_limit: 512m
+
+    react-vision:
+        image: node:22-bookworm-slim
+        container_name: react-vision
+        # working_dir + volumes mirror the host folder layout so the
+        # `file:../../project-banzamel/mineralui/build/pro` link in package.json
+        # resolves identically on host and inside the container.
+        working_dir: /workspace/project-vision/react-vision
+        env_file: .env
+        volumes:
+            - ./react-vision:/workspace/project-vision/react-vision
+            # Mounts the whole mineralui source repo (writable: npm install chmods bin scripts when
+            # linking the file: dep). Vision's package.json points `@banzamel/mineralui-pro` at the
+            # repo root, so the container needs the parent dir, not just the `build/pro` subpath.
+            - ../project-banzamel/mineralui:/workspace/project-banzamel/mineralui
+        entrypoint: ["sh", "-c", "[ -f node_modules/.install.stamp ] || (npm install && touch node_modules/.install.stamp); npm run dev -- --host 0.0.0.0 --port 5173"]
+        ports:
+            - "5173:5173"
+        depends_on:
+            laravel-vision:
+                condition: service_started
+        restart: unless-stopped
+        mem_limit: 1g
+
+volumes:
+    mysql-data:
+    redis-data:

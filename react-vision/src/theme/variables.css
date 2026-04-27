@@ -1,0 +1,304 @@
+/* MineralUI theme tokens
+   Generated from mineralui/src/theme/tokens/*
+   Copy this file into your app and override the variables you need.
+   Dark mode is the default in :root. .theme-light overrides are included from the framework tokens.
+*/
+
+/* colors.css */
+:root {
+    /* Brand palette - override only *-rgb, rest is auto-generated */
+    --mineral-primary-rgb: 0, 165, 222;
+    --mineral-primary: rgba(var(--mineral-primary-rgb), 1);
+    --mineral-primary-dark: color-mix(in srgb, rgba(var(--mineral-primary-rgb), 1) 80%, black);
+    --mineral-primary-light: color-mix(in srgb, rgba(var(--mineral-primary-rgb), 1) 70%, white);
+    --mineral-primary-contrast: rgba(255, 255, 255, 1);
+
+    /* Neutral palette */
+    --mineral-neutral-rgb: 100, 116, 139;
+    --mineral-neutral: rgba(var(--mineral-neutral-rgb), 1);
+    --mineral-neutral-dark: color-mix(in srgb, rgba(var(--mineral-neutral-rgb), 1) 80%, black);
+    --mineral-neutral-soft: color-mix(in srgb, rgba(var(--mineral-neutral-rgb), 1) 65%, white);
+    --mineral-neutral-contrast: rgba(255, 255, 255, 1);
+
+    /* Status palette - override only *-rgb */
+    --mineral-success-rgb: 22, 163, 74;
+    --mineral-success: rgba(var(--mineral-success-rgb), 1);
+    --mineral-success-dark: color-mix(in srgb, rgba(var(--mineral-success-rgb), 1) 75%, black);
+    --mineral-success-contrast: rgba(255, 255, 255, 1);
+    --mineral-error-rgb: 220, 38, 38;
+    --mineral-error: rgba(var(--mineral-error-rgb), 1);
+    --mineral-error-dark: color-mix(in srgb, rgba(var(--mineral-error-rgb), 1) 75%, black);
+    --mineral-error-contrast: rgba(255, 255, 255, 1);
+    --mineral-warning-rgb: 234, 124, 0;
+    --mineral-warning: rgba(var(--mineral-warning-rgb), 1);
+    --mineral-warning-dark: color-mix(in srgb, rgba(var(--mineral-warning-rgb), 1) 75%, black);
+    --mineral-warning-contrast: rgba(15, 23, 42, 1);
+    --mineral-info-rgb: 59, 130, 246;
+    --mineral-info: rgba(var(--mineral-info-rgb), 1);
+    --mineral-info-dark: color-mix(in srgb, rgba(var(--mineral-info-rgb), 1) 80%, black);
+    --mineral-info-contrast: rgba(255, 255, 255, 1);
+
+    /* Light palette */
+    --mineral-light-rgb: 148, 163, 184;
+    --mineral-light: rgba(var(--mineral-light-rgb), 1);
+    --mineral-light-dark: color-mix(in srgb, rgba(var(--mineral-light-rgb), 1) 75%, black);
+    --mineral-light-contrast: rgba(15, 23, 42, 1);
+
+    /* Dark palette */
+    --mineral-dark-color-rgb: 30, 41, 59;
+    --mineral-dark-color: rgba(var(--mineral-dark-color-rgb), 1);
+    --mineral-dark-color-dark: color-mix(in srgb, rgba(var(--mineral-dark-color-rgb), 1) 80%, black);
+    --mineral-dark-color-contrast: rgba(255, 255, 255, 1);
+
+    /* News palette (violet/magenta) */
+    --mineral-news-rgb: 168, 85, 247;
+    --mineral-news: rgba(var(--mineral-news-rgb), 1);
+    --mineral-news-dark: color-mix(in srgb, rgba(var(--mineral-news-rgb), 1) 75%, black);
+    --mineral-news-contrast: rgba(255, 255, 255, 1);
+
+    /* MSurface palette - dark mode */
+    --mineral-dark-rgb: 15, 23, 42;
+    --mineral-dark: rgba(var(--mineral-dark-rgb), 1);
+    --mineral-dark-light-rgb: 30, 41, 59;
+    --mineral-dark-light: rgba(var(--mineral-dark-light-rgb), 1);
+    --mineral-surface-rgb: 21, 29, 46;
+    --mineral-surface: rgba(var(--mineral-surface-rgb), 1);
+    --mineral-surface-contrast: rgba(10, 16, 30, 1);
+    --mineral-input-bg: rgba(37, 51, 71, 1);
+    --mineral-page-bg: var(--mineral-dark);
+    --mineral-page-text: var(--mineral-text);
+
+    /* MText palette */
+    --mineral-text-rgb: 226, 232, 240;
+    --mineral-text: rgba(var(--mineral-text-rgb), 1);
+    --mineral-text-secondary: rgba(100, 116, 139, 1);
+    --mineral-text-muted: var(--mineral-text-secondary);
+    --mineral-text-heading: rgba(241, 245, 249, 0.96);
+    --mineral-text-inverted: rgba(15, 23, 42, 1);
+    --mineral-tooltip-text: rgba(255, 255, 255, 1);
+    --mineral-tooltip-bg: rgba(15, 23, 42, 0.92);
+
+    /* Font colors */
+    --mineral-fcolor-default: var(--mineral-text);
+    --mineral-fcolor-muted: var(--mineral-text-secondary);
+    --mineral-fcolor-heading: var(--mineral-text-heading);
+    --mineral-fcolor-inverted: var(--mineral-text-inverted);
+    --mineral-fcolor-primary: var(--mineral-primary);
+    --mineral-fcolor-neutral: var(--mineral-neutral);
+    --mineral-fcolor-success: var(--mineral-success);
+    --mineral-fcolor-error: var(--mineral-error);
+    --mineral-fcolor-warning: var(--mineral-warning);
+    --mineral-fcolor-info: var(--mineral-info);
+    --mineral-fcolor-light: var(--mineral-light);
+    --mineral-fcolor-dark: var(--mineral-dark-color);
+    --mineral-fcolor-news: var(--mineral-news);
+
+    /* Borders and states */
+    --mineral-disabled-opacity: 0.5;
+    --mineral-border: rgba(255, 255, 255, 0.15);
+    --mineral-border-hover: rgba(255, 255, 255, 0.25);
+    --mineral-border-focus: var(--mineral-primary);
+
+    /* MText rendering */
+    --mineral-text-shadow: 0 0 1px rgba(0, 0, 0, 0.12);
+
+    /* Shell shadow (sidebar, navbar - visible in light mode) */
+    --mineral-shell-shadow: none;
+
+    /* Gleam - subtle gradient overlay
+       --mineral-gleam-intensity: opacity of the tint (0.0-1.0)
+       --mineral-gleam uses primary color for layout shells
+       --mineral-gleam-gradient is a bold white-highlight / dark-shadow overlay for filled surfaces
+       Tinted gleam (using --color-rgb) must stay inline because --color-rgb is contextual */
+    --mineral-gleam-intensity: 0.06;
+    --mineral-gleam: linear-gradient(
+        135deg,
+        rgba(var(--mineral-primary-rgb), var(--mineral-gleam-intensity)) 0%,
+        transparent 60%
+    );
+    --mineral-gleam-gradient: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, calc(var(--mineral-gleam-intensity) * 2)) 0%,
+        transparent 40%,
+        rgba(0, 0, 0, var(--mineral-gleam-intensity)) 100%
+    );
+
+    /* Control hover shadow */
+    --mineral-control-shadow:
+        0 4px 14px rgba(var(--mineral-primary-rgb), 0.16), 0 2px 6px rgba(var(--mineral-primary-rgb), 0.08);
+
+    /* MPopover and dropdown */
+    --mineral-popover-bg: rgba(30, 41, 59, 0.95);
+    --mineral-popover-border: rgba(255, 255, 255, 0.08);
+    --mineral-popover-backdrop-blur: 12px;
+    --mineral-option-hover-bg: rgba(255, 255, 255, 0.05);
+    --mineral-option-selected-bg: rgba(var(--mineral-primary-rgb), 0.15);
+    --mineral-option-active-bg: rgba(var(--mineral-primary-rgb), 0.25);
+}
+
+/* typography.css */
+:root {
+    --mineral-font-family-sans:
+        'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    --mineral-font-family-heading: var(--mineral-font-family-sans);
+    --mineral-font-family-mono: 'Cascadia MCode', 'Fira MCode', 'JetBrains Mono', monospace;
+    --mineral-font-family: var(--mineral-font-family-sans);
+
+    --mineral-font-size-xs: 0.75rem;
+    --mineral-font-size-sm: 0.875rem;
+    --mineral-font-size-md: 1rem;
+    --mineral-font-size-lg: 1.125rem;
+    --mineral-font-size-xl: 1.25rem;
+    --mineral-font-size-2xl: 1.5rem;
+}
+
+/* spacing.css */
+:root {
+    --mineral-spacing-base: 8px;
+    --mineral-spacing-xs: calc(var(--mineral-spacing-base) * 0.5);
+    --mineral-spacing-sm: var(--mineral-spacing-base);
+    --mineral-spacing-md: calc(var(--mineral-spacing-base) * 1.5);
+    --mineral-spacing-lg: calc(var(--mineral-spacing-base) * 2);
+    --mineral-spacing-xl: calc(var(--mineral-spacing-base) * 3);
+    --mineral-spacing-2xl: calc(var(--mineral-spacing-base) * 4);
+
+    --mineral-space-none: 0;
+    --mineral-space-xs: var(--mineral-spacing-xs);
+    --mineral-space-sm: var(--mineral-spacing-sm);
+    --mineral-space-md: var(--mineral-spacing-md);
+    --mineral-space-lg: var(--mineral-spacing-lg);
+    --mineral-space-xl: var(--mineral-spacing-xl);
+    --mineral-space-2xl: var(--mineral-spacing-2xl);
+}
+
+/* radius.css */
+:root {
+    --mineral-radius-base: 8px;
+    --mineral-radius-sm: calc(var(--mineral-radius-base) * 0.75);
+    --mineral-radius-md: var(--mineral-radius-base);
+    --mineral-radius-lg: calc(var(--mineral-radius-base) * 1.25);
+    --mineral-radius-xl: calc(var(--mineral-radius-base) * 2);
+    --mineral-radius-full: 9999px;
+}
+
+/* motion.css */
+:root {
+    --mineral-transition-fast: 150ms ease;
+    --mineral-transition-base: 300ms ease;
+    --mineral-transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --mineral-transition-slow: 450ms ease;
+
+    /* Named easing curves */
+    --mineral-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --mineral-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --mineral-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* elevation.css */
+:root {
+    --mineral-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --mineral-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --mineral-shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.35);
+    --mineral-shadow-focus: 0 0 0 3px rgba(var(--mineral-primary-rgb), 0.3);
+    --mineral-focus-ring: 0 0 0 3px rgba(var(--color-rgb), 0.22);
+    --mineral-popover-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* layers.css */
+:root {
+    --mineral-z-popover: 1000;
+    --mineral-z-modal: 1100;
+    --mineral-z-tooltip: 1150;
+    --mineral-z-toast: 1200;
+}
+
+.theme-light {
+    --mineral-dark-rgb: 255, 255, 255;
+    --mineral-dark: rgba(255, 255, 255, 1);
+    --mineral-dark-light-rgb: 255, 255, 255;
+    --mineral-dark-light: rgba(255, 255, 255, 1);
+    --mineral-surface-rgb: 255, 255, 255;
+    --mineral-surface: rgba(255, 255, 255, 1);
+    --mineral-surface-contrast: rgba(226, 232, 240, 1);
+    --mineral-input-bg: rgba(255, 255, 255, 1);
+    --mineral-page-bg: rgba(243, 244, 246, 1);
+    --mineral-page-text: rgba(30, 41, 59, 1);
+
+    --mineral-text-rgb: 30, 41, 59;
+    --mineral-text: rgba(var(--mineral-text-rgb), 1);
+    --mineral-text-secondary: rgba(100, 116, 139, 1);
+    --mineral-text-muted: var(--mineral-text-secondary);
+    --mineral-text-heading: rgba(31, 41, 55, 0.84);
+    --mineral-text-inverted: rgba(255, 255, 255, 1);
+
+    --mineral-fcolor-default: var(--mineral-text);
+    --mineral-fcolor-muted: var(--mineral-text-secondary);
+    --mineral-fcolor-heading: var(--mineral-text-heading);
+    --mineral-fcolor-inverted: var(--mineral-text-inverted);
+
+    --mineral-border: rgba(0, 0, 0, 0.12);
+    --mineral-border-hover: rgba(0, 0, 0, 0.2);
+
+    --mineral-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --mineral-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --mineral-shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.1);
+    --mineral-shadow-focus: 0 0 0 3px rgba(var(--mineral-primary-rgb), 0.3);
+    --mineral-popover-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --mineral-shell-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+
+    --mineral-popover-bg: rgba(255, 255, 255, 0.97);
+    --mineral-popover-border: rgba(0, 0, 0, 0.08);
+    --mineral-option-hover-bg: rgba(0, 0, 0, 0.04);
+    --mineral-option-selected-bg: rgba(var(--mineral-primary-rgb), 0.1);
+    --mineral-option-active-bg: rgba(var(--mineral-primary-rgb), 0.18);
+    --mineral-tooltip-text: rgba(255, 255, 255, 1);
+    --mineral-tooltip-bg: rgba(15, 23, 42, 0.92);
+}
+
+/* layout.css */
+:root {
+    /* Layout dimensions */
+    --mineral-navbar-height: 72px;
+    --mineral-sidebar-width: 240px;
+    --mineral-sidebar-collapsed-width: 64px;
+    --mineral-content-max-width: 1120px;
+    --mineral-breakpoint-sm: 640px;
+    --mineral-breakpoint-md: 768px;
+    --mineral-breakpoint-lg: 1024px;
+    --mineral-breakpoint-xl: 1280px;
+    --mineral-breakpoint-2xl: 1536px;
+}
+
+/* explicit dark mode overrides
+   Dark mode is already the default in :root.
+   Keep this block only if you want to toggle an explicit .theme-dark class in your app.
+*/
+.theme-dark {
+    --mineral-dark-rgb: 15, 23, 42;
+    --mineral-dark: rgba(var(--mineral-dark-rgb), 1);
+    --mineral-dark-light-rgb: 30, 41, 59;
+    --mineral-dark-light: rgba(var(--mineral-dark-light-rgb), 1);
+    --mineral-surface-rgb: 21, 29, 46;
+    --mineral-surface: rgba(var(--mineral-surface-rgb), 1);
+    --mineral-surface-contrast: rgba(10, 16, 30, 1);
+    --mineral-input-bg: rgba(37, 51, 71, 1);
+    --mineral-page-bg: var(--mineral-dark);
+    --mineral-page-text: var(--mineral-text);
+    --mineral-text-rgb: 226, 232, 240;
+    --mineral-text: rgba(var(--mineral-text-rgb), 1);
+    --mineral-text-secondary: rgba(100, 116, 139, 1);
+    --mineral-text-muted: var(--mineral-text-secondary);
+    --mineral-text-heading: rgba(241, 245, 249, 0.96);
+    --mineral-text-inverted: rgba(15, 23, 42, 1);
+    --mineral-tooltip-text: rgba(255, 255, 255, 1);
+    --mineral-tooltip-bg: rgba(15, 23, 42, 0.92);
+    --mineral-border: rgba(255, 255, 255, 0.15);
+    --mineral-border-hover: rgba(255, 255, 255, 0.25);
+    --mineral-border-focus: var(--mineral-primary);
+    --mineral-popover-bg: rgba(30, 41, 59, 0.95);
+    --mineral-popover-border: rgba(255, 255, 255, 0.08);
+    --mineral-option-hover-bg: rgba(255, 255, 255, 0.05);
+    --mineral-option-selected-bg: rgba(var(--mineral-primary-rgb), 0.15);
+    --mineral-option-active-bg: rgba(var(--mineral-primary-rgb), 0.25);
+}
