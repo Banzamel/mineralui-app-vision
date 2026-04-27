@@ -7,8 +7,10 @@ use Administration\Services\Interfaces\UserManagementServiceInterface;
 use Illuminate\Http\JsonResponse;
 
 /**
- * POST /administration/users/{user}/reset-password — resets the password and revokes active sessions.
- * Response carries the new temporary password to be delivered to the user out-of-band.
+ * POST /administration/users/{user}/reset-password — rotates the password, revokes active
+ * sessions and queues an email with the new temporary password. Response intentionally does
+ * NOT carry the password — email is the single source of truth so it never lives in HTTP logs
+ * or browser history.
  */
 readonly class ResetUserPasswordController
 {
@@ -21,11 +23,11 @@ readonly class ResetUserPasswordController
 
     /**
      * @param ResetUserPasswordRequest $request validated reset request carrying IP/user-agent
-     * @return JsonResponse { data: { temporary_password: string } }
+     * @return JsonResponse { ok: true } — the password is in the email, never in this response
      */
     public function __invoke(ResetUserPasswordRequest $request): JsonResponse
     {
-        $temporary = $this->userService->resetPassword($request->getDto(), $request->user());
-        return response()->json(['data' => ['temporary_password' => $temporary]]);
+        $this->userService->resetPassword($request->getDto(), $request->user());
+        return response()->json(['ok' => true]);
     }
 }

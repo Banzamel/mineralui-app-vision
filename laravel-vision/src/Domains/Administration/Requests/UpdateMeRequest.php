@@ -2,6 +2,7 @@
 
 namespace Administration\Requests;
 
+use Administration\Dtos\UserUpdateDto;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -35,5 +36,21 @@ final class UpdateMeRequest extends FormRequest
             ],
             'password' => ['sometimes', 'string', 'min:8'],
         ];
+    }
+
+    /**
+     * Builds the DTO consumed by UserManagementService::update. Role and active flag stay
+     * null here — a user editing their own profile cannot escalate to a different role
+     * or disable their own account.
+     *
+     * @return UserUpdateDto DTO containing the fields to change
+     */
+    public function getDto(): UserUpdateDto
+    {
+        return new UserUpdateDto(
+            name: $this->input('name'),
+            email: $this->input('email'),
+            password: $this->input('password'),
+        );
     }
 }

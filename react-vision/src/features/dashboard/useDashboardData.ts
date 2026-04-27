@@ -61,13 +61,22 @@ function buildPerGroup(
         .slice(0, 6)
 }
 
-export function useDashboardData() {
+interface UseDashboardDataOptions {
+    /**
+     * Whether to fetch users alongside objects/cameras/albums. Defaults to true (Dashboard page
+     * needs them for UsersSummaryWidget). CalendarPage opts out — it only renders albums on a
+     * calendar grid and the users fetch would require `users.view` permission for no reason.
+     */
+    withUsers?: boolean
+}
+
+export function useDashboardData({withUsers = true}: UseDashboardDataOptions = {}) {
     const {data, loading, error, reload} = useAsync<DashboardData>(async () => {
         const [objectsRes, camerasRes, albumsRes, usersRes] = await Promise.all([
             objectsApi.list(),
             camerasApi.list(),
             albumsApi.list(),
-            usersApi.list(),
+            withUsers ? usersApi.list() : Promise.resolve({data: [] as User[]}),
         ])
         return {
             objects: objectsRes.data,
@@ -75,7 +84,7 @@ export function useDashboardData() {
             albums: albumsRes.data,
             users: usersRes.data,
         }
-    }, [])
+    }, [withUsers])
 
     const derived = useMemo<DashboardDerived | null>(() => {
         if (!data) return null

@@ -15,11 +15,16 @@ use Administration\Events\UserUpdatedEvent;
 use Administration\Models\User;
 use Administration\Repositories\Interfaces\UserRepositoryInterface;
 use Administration\Services\Interfaces\UserManagementServiceInterface;
+use App\Mail\UserPasswordResetMail;
+use App\Mail\UserWelcomeMail;
 use Auth\Repositories\Interfaces\AuthLogRepositoryInterface;
 use Auth\Repositories\Interfaces\TokenRepositoryInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Throwable;
 
 /**
  * Tenant user management service — CRUD, avatar, active flag, password reset.
@@ -74,6 +79,24 @@ readonly class UserManagementService implements UserManagementServiceInterface
         $user->load('roles:id,name');
 
         event(new UserCreatedEvent($user, $actor));
+
+        // Welcome email with sign-in credentials. Same fail-safe pattern as resetPassword:
+        // queue the mail (non-blocking) and swallow transport errors so a flaky SMTP doesn't
+        // prevent the user from being created.
+        try {
+            Mail::to($user->email)->queue(new UserWelcomeMail(
+                userName: $user->name,
+                userEmail: $user->email,
+                password: $dto->getPassword(),
+                appName: (string) config('app.name', 'Vision'),
+                appUrl: (string) config('app.url'),
+            ));
+        } catch (Throwable $e) {
+            Log::warning('UserWelcomeMail dispatch failed', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
 
         return $user;
     }
@@ -151,6 +174,27 @@ readonly class UserManagementService implements UserManagementServiceInterface
             ip: $dto->getIp(),
             userAgent: $dto->getUserAgent(),
         );
+
+        // Queue the email — the password is already rotated and sessions revoked, so the
+        // admin's HTTP request returns instantly and the queue worker handles SMTP latency.
+        // Mail driver is `log` until SMTP is wired up; the body lands in storage/logs/laravel.log
+        // so ops can verify the template before flipping MAIL_MAILER.
+        try {
+            Mail::to($user->email)->queue(new UserPasswordResetMail(
+                userName: $user->name,
+                userEmail: $user->email,
+                temporaryPassword: $plain,
+                appName: (string) config('app.name', 'Vision'),
+                appUrl: (string) config('app.url'),
+            ));
+        } catch (Throwable $e) {
+            // Never let mail-dispatch hiccups bubble up to the admin clicking the button —
+            // the password is already rotated. Just log so ops sees it.
+            Log::warning('UserPasswordResetMail dispatch failed', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
 
         return $plain;
     }

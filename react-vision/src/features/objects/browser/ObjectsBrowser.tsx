@@ -7,7 +7,6 @@ import {
     MCameraIcon,
     MEditIcon,
     MFolderPlusIcon,
-    MPlusIcon,
 } from '@banzamel/mineralui-pro/icons'
 import {MInline, MStack} from '@banzamel/mineralui-pro/layout'
 import {MHeading, MText} from '@banzamel/mineralui-pro/typography'
@@ -38,6 +37,8 @@ interface ObjectsBrowserProps {
     openCamera: (id: number) => void
     openAlbum: (id: number) => void
     clearAlbum: () => void
+    clearCamera: () => void
+    goHome: () => void
 }
 
 // Responsywne kolumny mobile-first: 2 na mobile, 3 od ≥768px (tablet), 4 od ≥1024px (desktop).
@@ -62,6 +63,8 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
         openCamera,
         openAlbum,
         clearAlbum,
+        clearCamera,
+        goHome,
     } = props
 
     const albumPhotosFeed = useAlbumPhotos(activeAlbum?.id ?? null)
@@ -114,9 +117,16 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
                     <MHeading level={3}>
                         {activeCamera?.name} · {activeAlbum.date}
                     </MHeading>
-                    <MButton variant={'ghost'} startIcon={<MArrowLeftIcon />} onClick={clearAlbum}>
-                        {t('objects_dashboard.back_to_albums')}
-                    </MButton>
+                    <MButtonGroup size={'sm'}>
+                        <MButton
+                            variant={'outlined'}
+                            iconOnly
+                            startIcon={<MArrowLeftIcon />}
+                            aria-label={t('objects_dashboard.back_to_albums')}
+                            title={t('objects_dashboard.back_to_albums')}
+                            onClick={clearAlbum}
+                        />
+                    </MButtonGroup>
                 </MInline>
                 <AlbumGallery
                     photos={albumPhotosFeed.photos}
@@ -130,15 +140,30 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
 
     if (activeCamera) {
         return (
-            <MStack spacing={'sm'}>
+            <MStack>
                 <MInline justify={'between'} wrap={'wrap'} align={'center'}>
-                    <MStack spacing={'xs'}>
+                    <MStack>
                         <MHeading level={3}>{activeCamera.name}</MHeading>
                         <MText tone={'muted'}>{activeCamera.address}</MText>
                     </MStack>
-                    <MButton variant={'outlined'} onClick={() => crud.openEditCamera(activeCamera)}>
-                        {t('objects_dashboard.edit_camera')}
-                    </MButton>
+                    <MButtonGroup size={'sm'}>
+                        <MButton
+                            variant={'outlined'}
+                            iconOnly
+                            startIcon={<MArrowLeftIcon />}
+                            aria-label={t('objects_dashboard.back_to_object')}
+                            title={t('objects_dashboard.back_to_object')}
+                            onClick={clearCamera}
+                        />
+                        <MButton
+                            variant={'outlined'}
+                            iconOnly
+                            startIcon={<MEditIcon />}
+                            aria-label={t('objects_dashboard.edit_camera')}
+                            title={t('objects_dashboard.edit_camera')}
+                            onClick={() => crud.openEditCamera(activeCamera)}
+                        />
+                    </MButtonGroup>
                 </MInline>
                 <MCardGrid<AlbumSearchResult>
                     items={albumsOfCamera}
@@ -165,9 +190,9 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
             (activeObject.description ?? '').trim() ||
             t('objects_dashboard.no_meta')
         return (
-            <MStack spacing={'md'}>
+            <MStack>
                 <MInline justify={'between'} wrap={'wrap'} align={'center'}>
-                    <MStack spacing={'xs'}>
+                    <MStack>
                         <MHeading level={3}>{activeObject.name}</MHeading>
                         <MInline align={'center'} wrap={'wrap'}>
                             <ObjectIcon type={activeObject.type} size={16} />
@@ -176,7 +201,19 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
                             </MText>
                         </MInline>
                     </MStack>
-                    <MButtonGroup size={'xs'}>
+                    <MButtonGroup size={'sm'}>
+                        <MButton
+                            variant={'outlined'}
+                            iconOnly
+                            startIcon={<MArrowLeftIcon />}
+                            aria-label={t('objects_dashboard.back')}
+                            title={t('objects_dashboard.back')}
+                            onClick={() =>
+                                activeObject.parent_id != null
+                                    ? openObject(activeObject.parent_id)
+                                    : goHome()
+                            }
+                        />
                         <MButton
                             variant={'outlined'}
                             iconOnly
@@ -225,7 +262,7 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
                     </MStack>
                 )}
                 {camerasOfActive.length > 0 && (
-                    <MStack spacing={'xs'}>
+                    <MStack>
                         <MHeading level={5}>{t('objects_dashboard.cameras')}</MHeading>
                         <MCardGrid<Camera>
                             items={camerasOfActive}
@@ -249,17 +286,20 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
     }
 
     return (
-        <MStack spacing={'sm'}>
+        <MStack>
             <MInline justify={'between'} wrap={'wrap'} align={'center'}>
                 <MHeading level={3}>{t('objects_dashboard.all_objects')}</MHeading>
-                <MButton
-                    variant={'filled'}
-                    color={'primary'}
-                    startIcon={<MPlusIcon />}
-                    onClick={() => crud.openNewObject(null)}
-                >
-                    {t('objects_dashboard.add_object')}
-                </MButton>
+                <MButtonGroup size={'sm'}>
+                    <MButton
+                        variant={'filled'}
+                        color={'primary'}
+                        iconOnly
+                        startIcon={<MFolderPlusIcon />}
+                        aria-label={t('objects_dashboard.add_object')}
+                        title={t('objects_dashboard.add_object')}
+                        onClick={() => crud.openNewObject(null)}
+                    />
+                </MButtonGroup>
             </MInline>
             <MCardGrid<VisionObject>
                 items={rootObjects}

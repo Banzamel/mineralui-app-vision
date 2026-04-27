@@ -16,11 +16,11 @@ export function DashboardPage() {
     const {data, derived, loading, error, reload} = useDashboardData()
 
     return (
-        <MSection as={'main'} spacing={'lg'}>
+        <MSection as={'main'}>
             <MContainer size={'wide'}>
                 <Loading loading={loading} error={error} onRetry={reload} minHeight={400}>
                     {data && derived ? (
-                        <MStack spacing={'lg'}>
+                        <MStack>
                             <MReveal>
                                 <DashboardKpis
                                     objects={data.objects.length}

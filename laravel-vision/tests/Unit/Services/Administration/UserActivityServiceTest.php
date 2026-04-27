@@ -72,13 +72,13 @@ class UserActivityServiceTest extends TestCase
         $this->assertSame('photo_uploaded', $this->invokePrivate('myActivityType', $photo));
     }
 
-    public function test_model_label_returns_polish_accusative(): void
+    public function test_model_label_returns_english_noun(): void
     {
-        $this->assertSame('obiekt', $this->invokePrivate('modelLabel', \Objects\Models\VisionObject::class));
-        $this->assertSame('kamerę', $this->invokePrivate('modelLabel', \Objects\Models\Camera::class));
+        $this->assertSame('object', $this->invokePrivate('modelLabel', \Objects\Models\VisionObject::class));
+        $this->assertSame('camera', $this->invokePrivate('modelLabel', \Objects\Models\Camera::class));
         $this->assertSame('album', $this->invokePrivate('modelLabel', \Albums\Models\Album::class));
-        $this->assertSame('użytkownika', $this->invokePrivate('modelLabel', \Administration\Models\User::class));
-        $this->assertSame('rekord', $this->invokePrivate('modelLabel', 'Some\Unknown\Class'));
+        $this->assertSame('user', $this->invokePrivate('modelLabel', \Administration\Models\User::class));
+        $this->assertSame('record', $this->invokePrivate('modelLabel', 'Some\Unknown\Class'));
     }
 
     public function test_summarize_changes_skips_timestamps(): void

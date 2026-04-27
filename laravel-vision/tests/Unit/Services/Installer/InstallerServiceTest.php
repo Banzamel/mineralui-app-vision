@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Services\Installer;
 
+use FileManager\Services\Interfaces\FileManagerServiceInterface;
 use Illuminate\Support\Facades\Event;
 use Installer\Dtos\AdminDto;
 use Installer\Dtos\FirstObjectDto;
@@ -22,6 +23,7 @@ class InstallerServiceTest extends TestCase
     private DatabaseTesterServiceInterface $dbTester;
     private EnvWriterServiceInterface $envWriter;
     private CompanyProvisioningServiceInterface $provisioning;
+    private FileManagerServiceInterface $fileManager;
     private InstallerService $service;
 
     protected function setUp(): void
@@ -32,12 +34,14 @@ class InstallerServiceTest extends TestCase
         $this->dbTester = Mockery::mock(DatabaseTesterServiceInterface::class);
         $this->envWriter = Mockery::mock(EnvWriterServiceInterface::class);
         $this->provisioning = Mockery::mock(CompanyProvisioningServiceInterface::class);
+        $this->fileManager = Mockery::mock(FileManagerServiceInterface::class);
 
         $this->service = new InstallerService(
             $this->state,
             $this->dbTester,
             $this->envWriter,
             $this->provisioning,
+            $this->fileManager,
         );
     }
 

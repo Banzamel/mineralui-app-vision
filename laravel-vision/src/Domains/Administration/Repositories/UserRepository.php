@@ -57,7 +57,12 @@ class UserRepository implements UserRepositoryInterface
      */
     public function delete(User $user): bool
     {
-        return $user->delete();
+        // Hard delete — admins must be able to re-create a user with the same email after
+        // removal, and a soft-deleted row would block the unique constraint on `email`.
+        // FK cascades on user_id (oauth_logs, social_accounts, vision_user_camera_scopes,
+        // vision_push_subscriptions, vision_notifications) keep dependent rows in sync.
+        // SoftDeletes trait stays on the model — `restore()` is intentionally unreachable.
+        return (bool) $user->forceDelete();
     }
 
     /**

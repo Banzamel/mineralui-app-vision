@@ -86,7 +86,7 @@ export function UsersPage() {
             value: 'users',
             label: t('users_page.tab_users'),
             content: (
-                <MStack spacing={'sm'}>
+                <MStack>
                     <MInline justify={'end'}>
                         <ViewModeToggle value={usersView} onChange={setUsersView} />
                     </MInline>
@@ -105,7 +105,7 @@ export function UsersPage() {
             value: 'roles',
             label: t('users_page.tab_roles'),
             content: (
-                <MStack spacing={'sm'}>
+                <MStack>
                     <MInline justify={'end'}>
                         <ViewModeToggle value={rolesView} onChange={setRolesView} />
                     </MInline>
@@ -123,9 +123,9 @@ export function UsersPage() {
     ]
 
     return (
-        <MSection as={'main'} spacing={'lg'}>
+        <MSection as={'main'}>
             <MContainer size={'wide'}>
-                <MStack spacing={'lg'}>
+                <MStack>
                     <Loading
                         loading={loading}
                         error={error}

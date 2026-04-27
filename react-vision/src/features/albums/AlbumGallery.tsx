@@ -75,7 +75,7 @@ export function AlbumGallery({
     }
 
     return (
-        <MStack spacing={'md'}>
+        <MStack>
             <MGallery items={items} columns={columns} rounded preview hoverEffect={'zoom-dim'} />
             <MLoadMore
                 onLoadMore={onLoadMore}

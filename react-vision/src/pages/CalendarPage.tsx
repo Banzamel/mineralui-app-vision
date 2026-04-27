@@ -5,10 +5,10 @@ import {Loading} from '../components/Loading'
 import {AlbumsCalendarWidget, useDashboardData} from '../features/dashboard'
 
 export function CalendarPage() {
-    const {derived, loading, error, reload} = useDashboardData()
+    const {derived, loading, error, reload} = useDashboardData({withUsers: false})
 
     return (
-        <MSection as={'main'} spacing={'lg'}>
+        <MSection as={'main'}>
             <MContainer size={'wide'}>
                 <Loading loading={loading} error={error} onRetry={reload} minHeight={400}>
                     {derived ? (

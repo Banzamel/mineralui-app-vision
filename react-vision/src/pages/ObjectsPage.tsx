@@ -166,9 +166,9 @@ export function ObjectsPage() {
     }, [activeObjectId, activeCameraId, activeAlbumId, objects, cameras])
 
     return (
-        <MSection as={'main'} spacing={'lg'}>
+        <MSection as={'main'}>
             <MContainer size={'wide'}>
-                <MStack spacing={'lg'}>
+                <MStack>
                     <MInputSearch
                         placeholder={t('objects_dashboard.search_placeholder')}
                         value={query}
@@ -181,7 +181,7 @@ export function ObjectsPage() {
                     <Loading loading={loading} error={error} onRetry={reload} minHeight={400}>
                         <MGrid type={'row'}>
                             <MGrid type={'col'} sm={12} md={12} lg={3} xl={3}>
-                                <MStack spacing={'sm'}>
+                                <MStack>
                                     <MHeading level={5}>{t('objects_dashboard.tree')}</MHeading>
                                     <ObjectsTree
                                         roots={tree}
@@ -191,7 +191,7 @@ export function ObjectsPage() {
                                 </MStack>
                             </MGrid>
                             <MGrid type={'col'} sm={12} md={12} lg={9} xl={9}>
-                                <MStack spacing={'md'}>
+                                <MStack>
                                     <MBreadcrumb items={breadcrumbItems} />
                                     <ObjectsBrowser
                                         query={query}
@@ -208,6 +208,8 @@ export function ObjectsPage() {
                                         openCamera={openCamera}
                                         openAlbum={openAlbum}
                                         clearAlbum={() => setActiveAlbumId(null)}
+                                        clearCamera={() => setActiveCameraId(null)}
+                                        goHome={goHome}
                                     />
                                 </MStack>
                             </MGrid>
