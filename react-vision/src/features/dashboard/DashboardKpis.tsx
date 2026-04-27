@@ -7,7 +7,7 @@ import {
     MGalleryIcon,
     MImageIcon,
 } from '@banzamel/mineralui-pro/icons'
-import {MSimpleGrid} from '@banzamel/mineralui-pro/layout'
+import {MSimpleGrid, MStack} from '@banzamel/mineralui-pro/layout'
 
 import pl from '../../i18n/pl.json'
 
@@ -24,7 +24,7 @@ export function DashboardKpis({objects, cameras, albums, photos}: DashboardKpisP
     // Wrapped in a plain div so we can use MineralUI's `data-m-hidden` utility — MSimpleGrid
      // itself doesn't extend MHiddenProps, but the CSS rule is attribute-driven so any element works.
     return (
-        <div data-m-hidden={'md'}>
+        <MStack hidden={'sm'}>
             <MSimpleGrid columns={4} minItemWidth={'180px'}>
                 <MCardWidget
                     title={t('dashboard.kpi_objects')}
@@ -47,6 +47,6 @@ export function DashboardKpis({objects, cameras, albums, photos}: DashboardKpisP
                     icon={<MImageIcon size={28} />}
                 />
             </MSimpleGrid>
-        </div>
+        </MStack>
     )
 }

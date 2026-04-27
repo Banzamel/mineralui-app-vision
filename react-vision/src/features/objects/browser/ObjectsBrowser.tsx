@@ -1,8 +1,14 @@
 import {MCardGrid} from '@banzamel/mineralui-pro/cards'
-import {MButton} from '@banzamel/mineralui-pro/controls'
+import {MButton, MButtonGroup} from '@banzamel/mineralui-pro/controls'
 import {MSkeleton} from '@banzamel/mineralui-pro/feedback'
 import {useMI18n} from '@banzamel/mineralui-pro/i18n'
-import {MArrowLeftIcon, MPlusIcon} from '@banzamel/mineralui-pro/icons'
+import {
+    MArrowLeftIcon,
+    MCameraIcon,
+    MEditIcon,
+    MFolderPlusIcon,
+    MPlusIcon,
+} from '@banzamel/mineralui-pro/icons'
 import {MInline, MStack} from '@banzamel/mineralui-pro/layout'
 import {MHeading, MText} from '@banzamel/mineralui-pro/typography'
 
@@ -170,29 +176,36 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
                             </MText>
                         </MInline>
                     </MStack>
-                    <MInline wrap={'wrap'}>
-                        <MButton variant={'outlined'} onClick={() => crud.openEditObject(activeObject)}>
-                            {t('objects_dashboard.edit_object')}
-                        </MButton>
+                    <MButtonGroup size={'xs'}>
+                        <MButton
+                            variant={'outlined'}
+                            iconOnly
+                            startIcon={<MEditIcon />}
+                            aria-label={t('objects_dashboard.edit_object')}
+                            title={t('objects_dashboard.edit_object')}
+                            onClick={() => crud.openEditObject(activeObject)}
+                        />
                         {canAddChild && (
                             <MButton
                                 variant={'filled'}
                                 color={'primary'}
-                                startIcon={<MPlusIcon />}
+                                iconOnly
+                                startIcon={<MFolderPlusIcon />}
+                                aria-label={t('objects_dashboard.add_sub_object')}
+                                title={t('objects_dashboard.add_sub_object')}
                                 onClick={() => crud.openNewObject(activeObject.id)}
-                            >
-                                {t('objects_dashboard.add_sub_object')}
-                            </MButton>
+                            />
                         )}
                         <MButton
                             variant={'filled'}
                             color={'primary'}
-                            startIcon={<MPlusIcon />}
+                            iconOnly
+                            startIcon={<MCameraIcon />}
+                            aria-label={t('objects_dashboard.add_camera')}
+                            title={t('objects_dashboard.add_camera')}
                             onClick={() => crud.openNewCamera(activeObject.id)}
-                        >
-                            {t('objects_dashboard.add_camera')}
-                        </MButton>
-                    </MInline>
+                        />
+                    </MButtonGroup>
                 </MInline>
                 {childObjects.length > 0 && (
                     <MStack spacing={'xs'}>

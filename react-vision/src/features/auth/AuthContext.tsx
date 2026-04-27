@@ -86,15 +86,17 @@ export function AuthProvider({children}: {children: ReactNode}) {
     }, [])
 
     const logout = useCallback(async () => {
-        // Clear tokens FIRST so any in-flight fetch on the unmounting protected layout
-        // sees no Bearer header and gets short-circuited by helpers/api.ts. The actual
-        // /oauth/logout call goes fire-and-forget — server-side revocation is best-effort
-        // and a failed logout request shouldn't block the UI from returning to /login.
+        // Fire /oauth/logout while the bearer is still in localStorage — api.ts reads
+        // the token synchronously when building headers, so clearing it first would
+        // strip the Authorization header and the backend would 401. We don't await:
+        // server-side revocation is best-effort and shouldn't block the UI.
+        // Tokens cleared right after — subsequent in-flight requests from the
+        // unmounting protected layout get short-circuited by api.ts (no token + auth path).
+        authApi.logout().catch(() => {})
         setToken(null)
         setRefreshToken(null)
         setUser(null)
         persist(null)
-        authApi.logout().catch(() => {})
     }, [])
 
     const value = useMemo<AuthContextValue>(() => {

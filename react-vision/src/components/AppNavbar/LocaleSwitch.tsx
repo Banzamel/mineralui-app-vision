@@ -9,8 +9,8 @@ export function LocaleSwitch() {
 
     return (
         <MButtonGroup>
-            <MButton startIcon={<MFlagPlIconV2 size={32} />} iconOnly variant={'ghost'} active={locale === 'pl'} onClick={() => setLocale('pl')} />
-            <MButton startIcon={<MFlagGbIconV2 size={32} />} iconOnly variant={'ghost'} active={locale === 'en'} onClick={() => setLocale('en')} />
+            <MButton hidden={'sm'} startIcon={<MFlagPlIconV2 size={32} />} iconOnly variant={'ghost'} active={locale === 'pl'} onClick={() => setLocale('pl')} />
+            <MButton hidden={'sm'} startIcon={<MFlagGbIconV2 size={32} />} iconOnly variant={'ghost'} active={locale === 'en'} onClick={() => setLocale('en')} />
         </MButtonGroup>
     )
 }

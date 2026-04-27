@@ -30,6 +30,23 @@ export function DashboardPage() {
                                 />
                             </MReveal>
 
+                            <MGrid type={'row'}>
+                                <MGrid type={'col'} sm={12} md={12} lg={7} xl={7}>
+                                    <MReveal>
+                                        <CameraPreviewsWidget cameras={derived.featuredCameras} />
+                                    </MReveal>
+                                </MGrid>
+                                <MGrid type={'col'} sm={12} md={12} lg={5} xl={5}>
+                                    <MReveal>
+                                        <UsersSummaryWidget
+                                            users={data.users}
+                                            loggedInToday={derived.usersLoggedInToday}
+                                            activeCount={derived.usersActive}
+                                        />
+                                    </MReveal>
+                                </MGrid>
+                            </MGrid>
+
                             <MReveal>
                                 <RecentAlbumsWidget albums={derived.recentAlbums} />
                             </MReveal>
@@ -41,23 +58,6 @@ export function DashboardPage() {
                                     </MReveal>
                                 </MGrid>
                                 <MGrid type={'col'} sm={12} md={12} lg={4} xl={4}>
-                                    <MReveal>
-                                        <UsersSummaryWidget
-                                            users={data.users}
-                                            loggedInToday={derived.usersLoggedInToday}
-                                            activeCount={derived.usersActive}
-                                        />
-                                    </MReveal>
-                                </MGrid>
-                            </MGrid>
-
-                            <MGrid type={'row'}>
-                                <MGrid type={'col'} sm={12} md={12} lg={7} xl={7}>
-                                    <MReveal>
-                                        <CameraPreviewsWidget cameras={derived.featuredCameras} />
-                                    </MReveal>
-                                </MGrid>
-                                <MGrid type={'col'} sm={12} md={12} lg={5} xl={5}>
                                     <MReveal>
                                         <PhotosByObjectChart perObject={derived.perObject} />
                                     </MReveal>
