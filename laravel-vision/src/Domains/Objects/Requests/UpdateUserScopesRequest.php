@@ -28,9 +28,9 @@ class UpdateUserScopesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // `present` (zamiast `required`) — payload MUSI zawierać klucz `scopes`,
-            // ale dopuszczamy pustą tablicę (admin odznaczył wszystkie kamery → service
-            // wykona delete-all + nic nie wstawia).
+            // `present` (instead of `required`) — payload MUST carry the `scopes` key, but an
+            // empty array is allowed (admin unchecked all cameras → service delete-alls + inserts
+            // nothing). `required` would reject [] and break the "revoke all access" flow.
             'scopes' => ['present', 'array'],
             'scopes.*.type' => ['required', 'string', Rule::in(ScopeType::values())],
             'scopes.*.scope_id' => ['required', 'string', 'max:255'],

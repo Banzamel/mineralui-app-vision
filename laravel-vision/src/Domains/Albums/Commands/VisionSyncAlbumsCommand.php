@@ -19,7 +19,7 @@ class VisionSyncAlbumsCommand extends Command
     /**
      * @var string Command description shown in `php artisan list`.
      */
-    protected $description = 'Skanuje katalogi kamer i synchronizuje albumy/zdjęcia do bazy.';
+    protected $description = 'Scans camera directories and syncs albums/photos into the database.';
 
     /**
      * Runs the synchronization.
@@ -30,7 +30,7 @@ class VisionSyncAlbumsCommand extends Command
     public function handle(AlbumSyncServiceInterface $sync): int
     {
         $added = $sync->syncAll();
-        $this->info("Dodano {$added} nowych zdjęć.");
+        $this->info("Added {$added} new photos.");
         return self::SUCCESS;
     }
 }

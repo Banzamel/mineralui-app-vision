@@ -30,7 +30,7 @@ class PhotoStreamService implements PhotoStreamServiceInterface
     {
         $album = $photo->album;
         if (! $album || ! $album->file_manager_path_id) {
-            throw new NotFoundHttpException('Brak katalogu dla tego albumu.');
+            throw new NotFoundHttpException('Album folder is not bound.');
         }
 
         $folder = $this->fileManager->getItem(new FileShowDto($album->file_manager_path_id));
@@ -38,7 +38,7 @@ class PhotoStreamService implements PhotoStreamServiceInterface
         $filePath = $folder->path . '/' . $photo->filename;
 
         if (! $disk->exists($filePath)) {
-            throw new NotFoundHttpException('Plik zdjęcia nie istnieje na dysku.');
+            throw new NotFoundHttpException('Photo file not found on storage.');
         }
 
         return $disk->response($filePath, $photo->filename, [

@@ -32,9 +32,9 @@ class AuthServiceProvider extends \Illuminate\Foundation\Support\Providers\AuthS
         Passport::enablePasswordGrant();
 
         Passport::tokensCan([
-            'mobile' => 'Dostęp z aplikacji mobilnej',
-            'web' => 'Dostęp z aplikacji webowej',
-            'api' => 'Dostęp z zewnętrznego API',
+            'mobile' => 'Access from mobile application',
+            'web' => 'Access from web application',
+            'api' => 'Access from external API',
         ]);
 
         Passport::tokensExpireIn(now()->addDays(15));

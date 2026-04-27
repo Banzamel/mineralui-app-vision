@@ -187,7 +187,12 @@ readonly class FileManagerService implements FileManagerServiceInterface
         $parentPath = $parentId
             ? $this->fileManagerRepository->findOrFail($parentId)->path
             : $this->companyRoot($companyId);
-        $directoryPath = $parentPath . '/' . Str::slug($name);
+        // Use the raw name as the path segment — callers (CameraService, InstallerService,
+        // CameraObserver) already pass pre-slugified slugs, while AlbumSyncService passes the
+        // verbatim day folder name from the camera FTP (e.g. `2026_04_27-2026_04_27`). Running
+        // Str::slug here would mangle underscores into dashes and create a phantom folder
+        // alongside the real one — breaking PhotoStreamService at read time.
+        $directoryPath = $parentPath . '/' . $name;
 
         Storage::disk($storageDisk->value)->makeDirectory($directoryPath);
 

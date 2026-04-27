@@ -78,12 +78,12 @@ class UserSessionService implements UserSessionServiceInterface
     {
         $owner = $this->userRepository->findInCompany($dto->getUserId(), $dto->getCompanyId());
         if (!$owner) {
-            throw new ApiJsonException('Użytkownik spoza firmy.', 404);
+            throw new ApiJsonException('User does not belong to this company.', 404);
         }
 
         $token = $this->tokenRepository->findForUser($dto->getSessionId(), $dto->getUserId());
         if (!$token) {
-            throw new ApiJsonException('Sesja nie istnieje.', 404);
+            throw new ApiJsonException('Session not found.', 404);
         }
 
         $this->tokenRepository->revokeWithRefreshTokens($token);

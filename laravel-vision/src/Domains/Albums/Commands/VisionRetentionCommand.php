@@ -15,12 +15,12 @@ class VisionRetentionCommand extends Command
     /**
      * @var string Command signature — `--days` defaults to the enum value.
      */
-    protected $signature = 'vision:albums:retention {--days= : Liczba dni retencji (domyślnie z RetentionPolicyEnum)}';
+    protected $signature = 'vision:albums:retention {--days= : Retention window in days (defaults to RetentionPolicyEnum)}';
 
     /**
      * @var string Command description.
      */
-    protected $description = 'Kasuje albumy (i ich pliki) starsze niż ustalony okres retencji.';
+    protected $description = 'Deletes albums (and their files) older than the configured retention window.';
 
     /**
      * @param RetentionServiceInterface $retention retention service
@@ -33,7 +33,7 @@ class VisionRetentionCommand extends Command
             : RetentionPolicyEnum::DefaultDays->value;
 
         $removed = $retention->purge($days);
-        $this->info("Skasowano {$removed} starych albumów (próg: {$days} dni).");
+        $this->info("Removed {$removed} old albums (window: {$days} days).");
         return self::SUCCESS;
     }
 }

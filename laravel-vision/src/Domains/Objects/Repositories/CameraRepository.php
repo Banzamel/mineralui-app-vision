@@ -60,9 +60,10 @@ class CameraRepository implements CameraRepositoryInterface
      */
     public function delete(Camera $camera): void
     {
-        // Hard delete — per open-questions §9 cameras nie używają soft delete (folder
-        // na dysku znika razem z rekordem, slug uniqueness nie koliduje z deleted_at row).
-        // SoftDeletes trait zostaje na modelu na wypadek przyszłych potrzeb audit'u.
+        // Hard delete — per open-questions §9 cameras do not use soft delete (the on-disk
+        // folder is removed alongside the record, and slug uniqueness must not collide with
+        // a tombstoned deleted_at row). SoftDeletes trait stays on the model for future audit
+        // needs but `delete()` always force-deletes.
         $camera->forceDelete();
     }
 

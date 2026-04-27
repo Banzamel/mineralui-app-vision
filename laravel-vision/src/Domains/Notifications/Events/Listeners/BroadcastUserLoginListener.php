@@ -42,9 +42,14 @@ class BroadcastUserLoginListener implements ShouldQueue
                 userId: (int) $userId,
                 type: 'user_login',
                 severity: NotificationSeverityEnum::Info,
-                title: 'Użytkownik zalogowany',
-                message: "{$actor->name} zalogował(a) się do systemu.",
+                // EN fallback used by Web Push (OS notification) and when the frontend doesn't
+                // recognise the `type`. Frontend bell-icon renders from `data` via i18n.
+                title: 'User signed in',
+                message: "{$actor->name} signed in.",
                 link: null,
+                data: [
+                    'actor_name' => $actor->name,
+                ],
             ));
         }
     }

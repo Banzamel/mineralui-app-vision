@@ -20,7 +20,9 @@ use Installer\Services\Interfaces\CompanyProvisioningServiceInterface;
 use Installer\Services\Interfaces\DatabaseTesterServiceInterface;
 use Installer\Services\Interfaces\EnvWriterServiceInterface;
 use Installer\Services\Interfaces\InstallerServiceInterface;
+use FileManager\Services\Interfaces\FileManagerServiceInterface;
 use Objects\Models\Camera;
+use Objects\Models\VisionObject;
 use RuntimeException;
 
 /**
@@ -41,6 +43,7 @@ class InstallerService implements InstallerServiceInterface
         private readonly DatabaseTesterServiceInterface $databaseTester,
         private readonly EnvWriterServiceInterface $envWriter,
         private readonly CompanyProvisioningServiceInterface $provisioning,
+        private readonly FileManagerServiceInterface $fileManager,
     ) {}
 
     /**
@@ -198,6 +201,16 @@ class InstallerService implements InstallerServiceInterface
                     : null,
                 'is_online' => false,
             ]);
+
+            // Mirror CameraService::bindFileManagerFolder — installer bypasses that service for
+            // the slug-uniqueness reason above, but the camera still needs an FM path id, otherwise
+            // AlbumSyncService::syncCamera() short-circuits and the day folders never get scanned.
+            $object = VisionObject::withoutGlobalScopes()->find($objectId);
+            if ($object !== null) {
+                $objectFolder = $this->fileManager->findOrCreateDirectory($object->slug, $companyId, null, 'local');
+                $cameraFolder = $this->fileManager->findOrCreateDirectory($camera->slug, $companyId, $objectFolder->id, 'local');
+                $camera->forceFill(['file_manager_path_id' => $cameraFolder->id])->save();
+            }
 
             $this->state->putPayload('camera', ['id' => $camera->id] + $dto->toArray());
             $this->state->markStage(InstallStage::Camera);

@@ -139,18 +139,18 @@ class UserActivityService implements UserActivityServiceInterface
      * @param AuthLog $log source log row
      * @param array<string, array<int, string>> $names model => [row_id => name] lookup
      * @param string $type activity type already resolved for this row
-     * @return string Polish sentence for the UI
+     * @return string Human-readable English sentence for the UI
      */
     private function myActivityDescription(AuthLog $log, array $names, string $type): string
     {
         if (in_array($type, ['login', 'logout', 'password_changed', 'avatar_changed', 'profile_updated', 'scopes_updated'], true)) {
             return match ($type) {
-                'login' => 'Zalogowano do systemu',
-                'logout' => 'Wylogowano z systemu',
-                'password_changed' => 'Zmieniono hasło',
-                'avatar_changed' => 'Zaktualizowano avatar',
-                'profile_updated' => 'Zaktualizowano profil',
-                'scopes_updated' => 'Zmiana zakresu dostępu',
+                'login' => 'Signed in',
+                'logout' => 'Signed out',
+                'password_changed' => 'Password changed',
+                'avatar_changed' => 'Avatar updated',
+                'profile_updated' => 'Profile updated',
+                'scopes_updated' => 'Access scope updated',
                 default => $type,
             };
         }
@@ -178,12 +178,12 @@ class UserActivityService implements UserActivityServiceInterface
     }
 
     /**
-     * Renders a human-readable description (in Polish) for an activity entry.
+     * Renders a human-readable description for an activity entry.
      * For model mutations (Loggable) pulls the name from the preloaded map or from the changes payload.
      *
      * @param AuthLog $log source log row
      * @param array<string, array<int, string>> $names model => [row_id => name] lookup
-     * @return string Polish sentence for the UI
+     * @return string Human-readable English sentence for the UI
      */
     private function describeActivity(AuthLog $log, array $names): string
     {
@@ -192,11 +192,11 @@ class UserActivityService implements UserActivityServiceInterface
 
         if ($type !== 'model_change') {
             return match ($type) {
-                'login' => 'Zalogowano',
-                'logout' => 'Wylogowano',
-                'password_reset' => 'Reset hasła',
-                'scopes_updated' => 'Zmiana zakresu dostępu',
-                'role_changed' => 'Zmiana roli',
+                'login' => 'Signed in',
+                'logout' => 'Signed out',
+                'password_reset' => 'Password reset',
+                'scopes_updated' => 'Access scope updated',
+                'role_changed' => 'Role changed',
                 default => $action,
             };
         }
@@ -207,28 +207,28 @@ class UserActivityService implements UserActivityServiceInterface
         $suffix = $name ? " '{$name}'" : ($log->row_id ? ' #' . (int) $log->row_id : '');
 
         return match ($action) {
-            'created' => "Utworzono {$modelLabel}{$suffix}",
-            'updated' => "Zmieniono {$modelLabel}{$suffix}" . $this->summarizeChanges($changes),
-            'deleted', 'softDeleted' => "Usunięto {$modelLabel}{$suffix}",
-            'restored' => "Przywrócono {$modelLabel}{$suffix}",
+            'created' => "Created {$modelLabel}{$suffix}",
+            'updated' => "Updated {$modelLabel}{$suffix}" . $this->summarizeChanges($changes),
+            'deleted', 'softDeleted' => "Deleted {$modelLabel}{$suffix}",
+            'restored' => "Restored {$modelLabel}{$suffix}",
             default => "{$action} {$modelLabel}{$suffix}",
         };
     }
 
     /**
-     * Polish model label in accusative form, used in sentences like "Utworzono {label}".
+     * English model label, used in sentences like "Created {label} '{name}'".
      *
      * @param string $modelClass fully qualified Eloquent class name
-     * @return string Polish noun in accusative form
+     * @return string English noun
      */
     private function modelLabel(string $modelClass): string
     {
         return match ($modelClass) {
-            \Objects\Models\VisionObject::class => 'obiekt',
-            \Objects\Models\Camera::class => 'kamerę',
+            \Objects\Models\VisionObject::class => 'object',
+            \Objects\Models\Camera::class => 'camera',
             \Albums\Models\Album::class => 'album',
-            \Administration\Models\User::class => 'użytkownika',
-            default => 'rekord',
+            \Administration\Models\User::class => 'user',
+            default => 'record',
         };
     }
 

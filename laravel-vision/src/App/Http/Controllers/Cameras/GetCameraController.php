@@ -31,7 +31,7 @@ readonly class GetCameraController
         $camera = $this->service->find($id);
 
         if (! $request->user()->can('view', $camera)) {
-            throw new AuthorizationException('Nie masz tej kamery w swoim zasięgu.');
+            throw new AuthorizationException('This camera is outside your scope.');
         }
 
         return (new CameraResource($camera))->response();
