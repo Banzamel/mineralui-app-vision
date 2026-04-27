@@ -24,11 +24,6 @@ yarn-error.log
 yarn-debug.log*
 pnpm-debug.log*
 
-# ── Private MineralUI Pro tarballs / local checkouts ─────
-mineralui-pro/
-**/mineralui-pro-*.tgz
-**/banzamel-mineralui-pro-*.tgz
-
 # ── Laravel ──────────────────────────────────────────────
 laravel-vision/vendor/
 laravel-vision/public/build/
@@ -50,6 +45,8 @@ laravel-vision/auth.json
 react-vision/dist/
 react-vision/.vite/
 react-vision/coverage/
+react-vision/.mineralui-pro/
+.mineralui-pro/
 
 # ── Production deploy (build artifacts + scripts + configs) ─
 prod/
