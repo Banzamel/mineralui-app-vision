@@ -109,6 +109,14 @@ readonly class UserManagementService implements UserManagementServiceInterface
         $user = $this->userRepository->findOrFail($userId);
         $user = $this->userRepository->update($user, $dto->toArray());
 
+        // Roles live in the Spatie pivot, not on sec_users — UserUpdateDto::toArray() does not
+        // expose them, so the repository update never touches role assignment. Sync explicitly
+        // here when the DTO carries a role; null means "leave the existing role alone".
+        if ($dto->getRoleName() !== null) {
+            setPermissionsTeamId($user->company_id);
+            $user->syncRoles($dto->getRoleName());
+        }
+
         $user->load('roles:id,name');
 
         event(new UserUpdatedEvent($user, $actor));
