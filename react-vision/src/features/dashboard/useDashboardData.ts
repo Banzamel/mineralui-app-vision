@@ -23,8 +23,7 @@ export interface DashboardDerived {
     recentAlbums: AlbumSearchResult[]
     featuredCameras: Camera[]
     perDay: {date: string; count: number}[]
-    perObject: {label: string; count: number}[]
-    perCamera: {label: string; count: number}[]
+    perMonthByCamera: {labels: string[]; series: {label: string; data: number[]}[]}
     usersTotal: number
     usersActive: number
     usersLoggedInToday: number
@@ -46,19 +45,42 @@ function buildPerDay(albums: Album[]): {date: string; count: number}[] {
     return sorted.slice(-14).map(([date, count]) => ({date, count}))
 }
 
-function buildPerGroup(
+function buildPerMonthByCamera(
     enriched: AlbumSearchResult[],
-    keyFn: (a: AlbumSearchResult) => string,
-): {label: string; count: number}[] {
-    const bucket = new Map<string, number>()
-    for (const album of enriched) {
-        const key = keyFn(album)
-        bucket.set(key, (bucket.get(key) ?? 0) + album.photos_count)
+): {labels: string[]; series: {label: string; data: number[]}[]} {
+    // Last 6 months window (oldest → newest), keyed YYYY-MM for matching album.date prefixes.
+    const now = new Date()
+    const monthKeys: string[] = []
+    const labels: string[] = []
+    for (let i = 5; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+        const yyyy = d.getFullYear()
+        const mm = String(d.getMonth() + 1).padStart(2, '0')
+        monthKeys.push(`${yyyy}-${mm}`)
+        labels.push(`${mm}/${String(yyyy).slice(-2)}`)
     }
-    return Array.from(bucket.entries())
-        .map(([label, count]) => ({label, count}))
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 6)
+
+    // Pick top 5 cameras by total photos so the stacked legend stays readable in lg=4 column.
+    const totals = new Map<string, number>()
+    for (const album of enriched) {
+        totals.set(album.camera_name, (totals.get(album.camera_name) ?? 0) + album.photos_count)
+    }
+    const topCameras = Array.from(totals.entries())
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([name]) => name)
+
+    const series = topCameras.map((cameraName) => {
+        const data = monthKeys.map(() => 0)
+        for (const album of enriched) {
+            if (album.camera_name !== cameraName) continue
+            const idx = monthKeys.indexOf(album.date.slice(0, 7))
+            if (idx >= 0) data[idx] += album.photos_count
+        }
+        return {label: cameraName, data}
+    })
+
+    return {labels, series}
 }
 
 interface UseDashboardDataOptions {
@@ -96,8 +118,7 @@ export function useDashboardData({withUsers = true}: UseDashboardDataOptions = {
             .sort((a, b) => Number(b.is_online) - Number(a.is_online))
             .slice(0, 2)
         const perDay = buildPerDay(data.albums)
-        const perObject = buildPerGroup(enriched, (a) => a.object_path[0] ?? '—')
-        const perCamera = buildPerGroup(enriched, (a) => a.camera_name)
+        const perMonthByCamera = buildPerMonthByCamera(enriched)
         const today = new Date().toISOString().slice(0, 10)
         const usersLoggedInToday = data.users.filter(
             (u) => u.last_login_at && u.last_login_at.slice(0, 10) === today,
@@ -109,8 +130,7 @@ export function useDashboardData({withUsers = true}: UseDashboardDataOptions = {
             recentAlbums,
             featuredCameras,
             perDay,
-            perObject,
-            perCamera,
+            perMonthByCamera,
             usersTotal: data.users.length,
             usersActive,
             usersLoggedInToday,

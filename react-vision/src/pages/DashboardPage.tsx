@@ -5,7 +5,7 @@ import {Loading} from '../components/Loading'
 import {
     CameraPreviewsWidget,
     DashboardKpis,
-    PhotosByObjectChart,
+    PhotosByCameraMonthlyChart,
     PhotosPerDayChart,
     RecentAlbumsWidget,
     UsersSummaryWidget,
@@ -59,7 +59,7 @@ export function DashboardPage() {
                                 </MGrid>
                                 <MGrid type={'col'} sm={12} md={12} lg={4} xl={4}>
                                     <MReveal>
-                                        <PhotosByObjectChart perObject={derived.perObject} />
+                                        <PhotosByCameraMonthlyChart perMonthByCamera={derived.perMonthByCamera} />
                                     </MReveal>
                                 </MGrid>
                             </MGrid>
