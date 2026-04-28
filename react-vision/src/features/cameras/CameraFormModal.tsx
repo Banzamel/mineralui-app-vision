@@ -1,6 +1,6 @@
 import {useEffect, useMemo, useState} from 'react'
 
-import {MButton} from '@banzamel/mineralui-pro/controls'
+import {MButton, MCheckbox} from '@banzamel/mineralui-pro/controls'
 import {MSelect} from '@banzamel/mineralui-pro/dropdowns'
 import {useMToast} from '@banzamel/mineralui-pro/feedback'
 import {useMI18n} from '@banzamel/mineralui-pro/i18n'
@@ -41,6 +41,7 @@ export function CameraFormModal({
     const [streamLogin, setStreamLogin] = useState('')
     const [streamPassword, setStreamPassword] = useState('')
     const [mainPhoto, setMainPhoto] = useState('')
+    const [motionPreviewEnabled, setMotionPreviewEnabled] = useState(false)
     const [saving, setSaving] = useState(false)
 
     useEffect(() => {
@@ -53,6 +54,7 @@ export function CameraFormModal({
         setStreamLogin(camera?.stream_login ?? '')
         setStreamPassword(camera?.stream_password ?? '')
         setMainPhoto(camera?.main_photo_url ?? '')
+        setMotionPreviewEnabled(camera?.motion_preview_enabled ?? false)
     }, [open, camera, defaultObjectId])
 
     const objectOptions = useMemo(() => {
@@ -83,6 +85,7 @@ export function CameraFormModal({
                 stream_url: streamUrl,
                 stream_login: streamLogin || null,
                 stream_password: streamPassword || null,
+                motion_preview_enabled: motionPreviewEnabled,
             }
             const saved = camera
                 ? await camerasApi.update(camera.id, payload)
@@ -198,6 +201,11 @@ export function CameraFormModal({
                     clearable
                     fullWidth
                     placeholder={t('camera_form.main_photo_placeholder')}
+                />
+                <MCheckbox
+                    label={t('camera_form.motion_preview_label')}
+                    checked={motionPreviewEnabled}
+                    onChange={(e) => setMotionPreviewEnabled(e.target.checked)}
                 />
             </MStack>
         </MModal>

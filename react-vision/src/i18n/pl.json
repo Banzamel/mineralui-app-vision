@@ -339,13 +339,16 @@
         "stream_password": "Hasło strumienia",
         "main_photo": "Główne zdjęcie",
         "main_photo_placeholder": "Wybierz lub upuść plik",
+        "motion_preview_label": "Podgląd ruchu w albumie (5 zdjęć ruchu jako jeden kafelek)",
         "cancel": "Anuluj",
         "save": "Zapisz",
         "saved_title": "Kamera zapisana",
         "saved_message": "Zmiany zostały zapisane."
     },
     "albums": {
-        "photos_count": "{count} zdjęć"
+        "photos_count": "{count} zdjęć",
+        "view_grid": "Siatka",
+        "view_motion": "Podgląd ruchu"
     },
     "notifications_center": {
         "open_label": "Otwórz centrum powiadomień",

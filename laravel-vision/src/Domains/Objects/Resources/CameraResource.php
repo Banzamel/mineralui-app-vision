@@ -34,6 +34,7 @@ class CameraResource extends JsonResource
             'file_manager_path_id' => $this->file_manager_path_id,
             'is_online' => (bool) $this->is_online,
             'is_active' => (bool) $this->is_active,
+            'motion_preview_enabled' => (bool) $this->motion_preview_enabled,
             'last_seen_at' => optional($this->last_seen_at)->toIso8601String(),
             'created_at' => optional($this->created_at)->toIso8601String(),
             'updated_at' => optional($this->updated_at)->toIso8601String(),

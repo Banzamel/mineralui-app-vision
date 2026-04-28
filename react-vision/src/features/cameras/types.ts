@@ -13,6 +13,12 @@ export interface Camera {
      */
     main_photo_url?: string | null
     is_online: boolean
+    /**
+     * When true, the album view exposes a toggle to switch between the default photo grid
+     * and a motion-preview mode that groups consecutive motion bursts (≤ 5 s gap) into one
+     * tile cycling through frames on hover (desktop) / autoplay (mobile).
+     */
+    motion_preview_enabled?: boolean
     created_at: string
     [key: string]: unknown
 }
@@ -25,6 +31,7 @@ export interface CameraPayload {
     stream_url: string
     stream_login?: string | null
     stream_password?: string | null
+    motion_preview_enabled?: boolean
 }
 
 export interface CameraLeaf {

@@ -339,13 +339,16 @@
         "stream_password": "Stream password",
         "main_photo": "Main photo",
         "main_photo_placeholder": "Pick or drop a file",
+        "motion_preview_label": "Motion preview in album (group 5 motion shots into a single tile)",
         "cancel": "Cancel",
         "save": "Save",
         "saved_title": "Camera saved",
         "saved_message": "Changes have been saved."
     },
     "albums": {
-        "photos_count": "{count} photos"
+        "photos_count": "{count} photos",
+        "view_grid": "Grid",
+        "view_motion": "Motion preview"
     },
     "notifications_center": {
         "open_label": "Open notifications center",

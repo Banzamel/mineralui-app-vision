@@ -35,6 +35,7 @@ class CreateCameraRequest extends FormRequest
             'stream_login' => ['nullable', 'string', 'max:255'],
             'stream_password' => ['nullable', 'string', 'max:255'],
             'main_photo_path' => ['nullable', 'string', 'max:1024'],
+            'motion_preview_enabled' => ['sometimes', 'boolean'],
         ];
     }
 }

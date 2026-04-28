@@ -82,6 +82,7 @@ class CameraService implements CameraServiceInterface
                     : null,
                 'main_photo_path' => $dto->mainPhotoPath,
                 'is_online' => false,
+                'motion_preview_enabled' => $dto->motionPreviewEnabled,
             ];
 
             $camera = $this->repository->create($data);
@@ -150,6 +151,7 @@ class CameraService implements CameraServiceInterface
                 'stream_url' => $dto->streamUrl,
                 'stream_login' => $dto->streamLogin,
                 'main_photo_path' => $dto->mainPhotoPath,
+                'motion_preview_enabled' => $dto->motionPreviewEnabled,
             ], fn ($v) => $v !== null);
 
             if ($dto->streamPassword !== null) {

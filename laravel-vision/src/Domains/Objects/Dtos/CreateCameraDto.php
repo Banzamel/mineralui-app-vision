@@ -18,6 +18,7 @@ final readonly class CreateCameraDto
      * @param string|null $streamLogin Stream login (optional).
      * @param string|null $streamPassword Plaintext password — the service will encrypt it.
      * @param string|null $mainPhotoPath Storage path to the thumbnail.
+     * @param bool $motionPreviewEnabled Whether the album view exposes the motion-preview toggle.
      */
     public function __construct(
         public int $objectId,
@@ -29,6 +30,7 @@ final readonly class CreateCameraDto
         public ?string $streamLogin = null,
         public ?string $streamPassword = null,
         public ?string $mainPhotoPath = null,
+        public bool $motionPreviewEnabled = false,
     ) {
     }
 }

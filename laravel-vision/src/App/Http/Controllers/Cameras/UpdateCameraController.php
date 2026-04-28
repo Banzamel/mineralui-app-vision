@@ -37,6 +37,9 @@ readonly class UpdateCameraController
             streamLogin: $request->input('stream_login'),
             streamPassword: $request->input('stream_password'),
             mainPhotoPath: $request->input('main_photo_path'),
+            motionPreviewEnabled: $request->has('motion_preview_enabled')
+                ? $request->boolean('motion_preview_enabled')
+                : null,
         );
 
         $camera = $this->service->update($id, $dto);

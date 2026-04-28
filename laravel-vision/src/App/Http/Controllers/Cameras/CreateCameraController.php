@@ -36,6 +36,7 @@ readonly class CreateCameraController
             streamLogin: $request->input('stream_login'),
             streamPassword: $request->input('stream_password'),
             mainPhotoPath: $request->input('main_photo_path'),
+            motionPreviewEnabled: $request->boolean('motion_preview_enabled'),
         );
 
         $camera = $this->service->create($dto);

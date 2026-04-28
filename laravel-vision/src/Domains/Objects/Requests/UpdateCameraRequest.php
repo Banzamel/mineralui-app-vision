@@ -34,6 +34,7 @@ class UpdateCameraRequest extends FormRequest
             'stream_login' => ['sometimes', 'nullable', 'string', 'max:255'],
             'stream_password' => ['sometimes', 'nullable', 'string', 'max:255'],
             'main_photo_path' => ['sometimes', 'nullable', 'string', 'max:1024'],
+            'motion_preview_enabled' => ['sometimes', 'boolean'],
         ];
     }
 }

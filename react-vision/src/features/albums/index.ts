@@ -1,6 +1,7 @@
 export {albumsApi} from './api'
 export {AlbumCard} from './AlbumCard'
 export {AlbumGallery} from './AlbumGallery'
+export {AlbumMotionGallery} from './AlbumMotionGallery'
 export {enrichAlbums, searchAlbums} from './search'
 export {useAlbumPhotos} from './useAlbumPhotos'
 export type {Album, AlbumPhoto, AlbumPhotosPage, AlbumSearchResult} from './types'

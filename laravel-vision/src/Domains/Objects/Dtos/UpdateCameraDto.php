@@ -18,6 +18,7 @@ final readonly class UpdateCameraDto
      * @param string|null $streamLogin New RTSP login.
      * @param string|null $streamPassword New plaintext RTSP password.
      * @param string|null $mainPhotoPath New thumbnail path.
+     * @param bool|null $motionPreviewEnabled New motion-preview-toggle flag (null leaves it untouched).
      */
     public function __construct(
         public ?int $objectId = null,
@@ -29,6 +30,7 @@ final readonly class UpdateCameraDto
         public ?string $streamLogin = null,
         public ?string $streamPassword = null,
         public ?string $mainPhotoPath = null,
+        public ?bool $motionPreviewEnabled = null,
     ) {
     }
 }

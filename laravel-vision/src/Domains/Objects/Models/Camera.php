@@ -65,6 +65,7 @@ class Camera extends Model
         'file_manager_path_id',
         'is_online',
         'last_seen_at',
+        'motion_preview_enabled',
     ];
 
     /**
@@ -75,6 +76,7 @@ class Camera extends Model
     protected $casts = [
         'is_online' => 'boolean',
         'last_seen_at' => 'datetime',
+        'motion_preview_enabled' => 'boolean',
     ];
 
     /**

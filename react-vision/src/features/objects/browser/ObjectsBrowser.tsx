@@ -1,3 +1,5 @@
+import {useEffect, useState} from 'react'
+
 import {MCardGrid} from '@banzamel/mineralui-pro/cards'
 import {MButton, MButtonGroup} from '@banzamel/mineralui-pro/controls'
 import {MSkeleton} from '@banzamel/mineralui-pro/feedback'
@@ -6,12 +8,14 @@ import {
     MArrowLeftIcon,
     MCameraIcon,
     MEditIcon,
+    MFileVideoIcon,
     MFolderPlusIcon,
+    MGalleryIcon,
 } from '@banzamel/mineralui-pro/icons'
 import {MInline, MStack} from '@banzamel/mineralui-pro/layout'
 import {MHeading, MText} from '@banzamel/mineralui-pro/typography'
 
-import {AlbumCard, AlbumGallery, useAlbumPhotos} from '../../albums'
+import {AlbumCard, AlbumGallery, AlbumMotionGallery, useAlbumPhotos} from '../../albums'
 import type {AlbumSearchResult} from '../../albums'
 import {Camera, CameraTile} from '../../cameras'
 import pl from '../../../i18n/pl.json'
@@ -68,6 +72,14 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
     } = props
 
     const albumPhotosFeed = useAlbumPhotos(activeAlbum?.id ?? null)
+    const motionPreviewAvailable = activeCamera?.motion_preview_enabled === true
+    const [albumView, setAlbumView] = useState<'grid' | 'motion'>('grid')
+
+    // Reset to default grid view whenever the album or camera changes — prevents the toggle
+    // from sticking on `motion` when navigating to an album whose camera does not support it.
+    useEffect(() => {
+        setAlbumView('grid')
+    }, [activeAlbum?.id, activeCamera?.id])
 
     const objectMenu = (obj: VisionObject) => [
         {label: t('objects_dashboard.edit'), onClick: () => crud.openEditObject(obj)},
@@ -117,23 +129,56 @@ export function ObjectsBrowser(props: ObjectsBrowserProps) {
                     <MHeading level={3}>
                         {activeCamera?.name} · {activeAlbum.date}
                     </MHeading>
-                    <MButtonGroup size={'sm'}>
-                        <MButton
-                            variant={'outlined'}
-                            iconOnly
-                            startIcon={<MArrowLeftIcon />}
-                            aria-label={t('objects_dashboard.back_to_albums')}
-                            title={t('objects_dashboard.back_to_albums')}
-                            onClick={clearAlbum}
-                        />
-                    </MButtonGroup>
+                    <MInline align={'center'} wrap={'wrap'}>
+                        {motionPreviewAvailable && (
+                            <MButtonGroup size={'sm'}>
+                                <MButton
+                                    variant={albumView === 'grid' ? 'filled' : 'outlined'}
+                                    color={albumView === 'grid' ? 'primary' : undefined}
+                                    iconOnly
+                                    startIcon={<MGalleryIcon />}
+                                    aria-label={t('albums.view_grid')}
+                                    title={t('albums.view_grid')}
+                                    onClick={() => setAlbumView('grid')}
+                                />
+                                <MButton
+                                    variant={albumView === 'motion' ? 'filled' : 'outlined'}
+                                    color={albumView === 'motion' ? 'primary' : undefined}
+                                    iconOnly
+                                    startIcon={<MFileVideoIcon />}
+                                    aria-label={t('albums.view_motion')}
+                                    title={t('albums.view_motion')}
+                                    onClick={() => setAlbumView('motion')}
+                                />
+                            </MButtonGroup>
+                        )}
+                        <MButtonGroup size={'sm'}>
+                            <MButton
+                                variant={'outlined'}
+                                iconOnly
+                                startIcon={<MArrowLeftIcon />}
+                                aria-label={t('objects_dashboard.back_to_albums')}
+                                title={t('objects_dashboard.back_to_albums')}
+                                onClick={clearAlbum}
+                            />
+                        </MButtonGroup>
+                    </MInline>
                 </MInline>
-                <AlbumGallery
-                    photos={albumPhotosFeed.photos}
-                    hasMore={albumPhotosFeed.hasMore}
-                    loading={albumPhotosFeed.loading}
-                    onLoadMore={albumPhotosFeed.loadMore}
-                />
+                {motionPreviewAvailable && albumView === 'motion' ? (
+                    <AlbumMotionGallery
+                        photos={albumPhotosFeed.photos}
+                        hasMore={albumPhotosFeed.hasMore}
+                        loading={albumPhotosFeed.loading}
+                        onLoadMore={albumPhotosFeed.loadMore}
+                    />
+                ) : (
+                    <AlbumGallery
+                        photos={albumPhotosFeed.photos}
+                        hasMore={albumPhotosFeed.hasMore}
+                        loading={albumPhotosFeed.loading}
+                        onLoadMore={albumPhotosFeed.loadMore}
+                    />
+                )}
             </MStack>
         )
     }
