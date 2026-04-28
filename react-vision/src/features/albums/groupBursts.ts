@@ -43,5 +43,8 @@ export function groupPhotosIntoBursts(
     }
     bursts.push(current)
 
-    return bursts.map((frames) => ({lead: frames[0]!, frames}))
+    // Display bursts newest-first to match the regular photo grid (which lists photos
+    // newest → oldest). Frames inside each burst stay chronological (oldest → newest)
+    // so the animation plays motion forward in time.
+    return bursts.reverse().map((frames) => ({lead: frames[0]!, frames}))
 }

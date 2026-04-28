@@ -4,6 +4,7 @@ import {MLoadMore} from '@banzamel/mineralui-pro/controls'
 import {MSkeleton} from '@banzamel/mineralui-pro/feedback'
 import {MStack} from '@banzamel/mineralui-pro/layout'
 
+import {useIsMobile} from '../../helpers'
 import {groupPhotosIntoBursts} from './groupBursts'
 import type {PhotoBurst} from './groupBursts'
 import {MotionPreviewImage} from './MotionPreviewImage'
@@ -11,6 +12,7 @@ import type {AlbumPhoto} from './types'
 
 interface AlbumMotionGalleryProps {
     photos: AlbumPhoto[]
+    /** Override columns. When omitted, defaults to 2 on mobile / 3 on desktop. */
     columns?: 2 | 3 | 4 | 5 | 6
     hasMore?: boolean
     loading?: boolean
@@ -58,10 +60,7 @@ function BurstTile({burst, autoplayOnTouch}: {burst: PhotoBurst; autoplayOnTouch
     if (burst.frames.length < 2) {
         // Lone photo — render as a static thumbnail so the grid stays uniform with bursts.
         return (
-            <a
-                href={burst.lead.url}
-                target={'_blank'}
-                rel={'noreferrer'}
+            <div
                 style={{display: 'block', borderRadius: 8, overflow: 'hidden', aspectRatio: '4 / 3'}}
             >
                 <img
@@ -70,29 +69,21 @@ function BurstTile({burst, autoplayOnTouch}: {burst: PhotoBurst; autoplayOnTouch
                     loading={'lazy'}
                     style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}}
                 />
-            </a>
+            </div>
         )
     }
     return (
-        <a
-            href={burst.lead.url}
-            target={'_blank'}
-            rel={'noreferrer'}
-            style={{display: 'block'}}
-            aria-label={burst.lead.captured_at}
-        >
-            <MotionPreviewImage
-                frames={burst.frames.map((f) => ({url: f.url, thumbnail_url: f.thumbnail_url}))}
-                autoplay={autoplayOnTouch}
-                alt={burst.lead.captured_at}
-            />
-        </a>
+        <MotionPreviewImage
+            frames={burst.frames.map((f) => ({url: f.url, thumbnail_url: f.thumbnail_url}))}
+            autoplay={autoplayOnTouch}
+            alt={burst.lead.captured_at}
+        />
     )
 }
 
 export function AlbumMotionGallery({
     photos,
-    columns = 3,
+    columns,
     hasMore,
     loading,
     onLoadMore,
@@ -100,17 +91,19 @@ export function AlbumMotionGallery({
     skeletonCount = 12,
 }: AlbumMotionGalleryProps) {
     const isTouch = useIsTouchDevice()
+    const isMobile = useIsMobile()
+    const effectiveColumns = columns ?? (isMobile ? 2 : 3)
     const bursts = useMemo(() => groupPhotosIntoBursts(photos), [photos])
 
     const showLoadMore = typeof onLoadMore === 'function'
     const showSkeleton = loading === true && photos.length === 0
 
     if (showSkeleton) {
-        return <GridSkeleton columns={columns} count={skeletonCount} />
+        return <GridSkeleton columns={effectiveColumns} count={skeletonCount} />
     }
 
     const grid = (
-        <div style={{display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gap: '12px'}}>
+        <div style={{display: 'grid', gridTemplateColumns: `repeat(${effectiveColumns}, 1fr)`, gap: '12px'}}>
             {bursts.map((b) => (
                 <BurstTile key={b.lead.id} burst={b} autoplayOnTouch={isTouch} />
             ))}

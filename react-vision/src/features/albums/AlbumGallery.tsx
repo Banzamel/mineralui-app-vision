@@ -6,11 +6,12 @@ import {MGallery} from '@banzamel/mineralui-pro/media'
 import type {MGalleryItem} from '@banzamel/mineralui-pro/media'
 import {MStack} from '@banzamel/mineralui-pro/layout'
 
-import {formatDateTime} from '../../helpers'
+import {formatDateTime, useIsMobile} from '../../helpers'
 import type {AlbumPhoto} from './types'
 
 interface AlbumGalleryProps {
     photos: AlbumPhoto[]
+    /** Override columns (forces a fixed value). When omitted, defaults to 2 on mobile / 3 on desktop. */
     columns?: 2 | 3 | 4 | 5 | 6
     hasMore?: boolean
     loading?: boolean
@@ -44,13 +45,15 @@ function GallerySkeleton({columns, count}: {columns: number; count: number}) {
 
 export function AlbumGallery({
     photos,
-    columns = 3,
+    columns,
     hasMore,
     loading,
     onLoadMore,
     autoLoad = true,
     skeletonCount = 12,
 }: AlbumGalleryProps) {
+    const isMobile = useIsMobile()
+    const effectiveColumns = columns ?? (isMobile ? 2 : 3)
     const items = useMemo<MGalleryItem[]>(
         () =>
             photos.map((p) => ({
@@ -67,16 +70,16 @@ export function AlbumGallery({
     const showSkeleton = loading === true && photos.length === 0
 
     if (showSkeleton) {
-        return <GallerySkeleton columns={columns} count={skeletonCount} />
+        return <GallerySkeleton columns={effectiveColumns} count={skeletonCount} />
     }
 
     if (!showLoadMore) {
-        return <MGallery items={items} columns={columns} rounded preview hoverEffect={'zoom-dim'} />
+        return <MGallery items={items} columns={effectiveColumns} rounded preview hoverEffect={'zoom-dim'} />
     }
 
     return (
         <MStack>
-            <MGallery items={items} columns={columns} rounded preview hoverEffect={'zoom-dim'} />
+            <MGallery items={items} columns={effectiveColumns} rounded preview hoverEffect={'zoom-dim'} />
             <MLoadMore
                 onLoadMore={onLoadMore}
                 loading={loading}
