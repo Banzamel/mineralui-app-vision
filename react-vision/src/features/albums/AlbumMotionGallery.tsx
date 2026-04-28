@@ -4,7 +4,6 @@ import {MLoadMore} from '@banzamel/mineralui-pro/controls'
 import {MSkeleton} from '@banzamel/mineralui-pro/feedback'
 import {MStack} from '@banzamel/mineralui-pro/layout'
 
-import {useIsMobile} from '../../helpers'
 import {groupPhotosIntoBursts} from './groupBursts'
 import type {PhotoBurst} from './groupBursts'
 import {MotionPreviewImage} from './MotionPreviewImage'
@@ -12,14 +11,14 @@ import type {AlbumPhoto} from './types'
 
 interface AlbumMotionGalleryProps {
     photos: AlbumPhoto[]
-    /** Override columns. When omitted, defaults to 2 on mobile / 3 on desktop. */
-    columns?: 2 | 3 | 4 | 5 | 6
     hasMore?: boolean
     loading?: boolean
     onLoadMore?: () => void
     autoLoad?: boolean
     skeletonCount?: number
 }
+
+const COLUMNS = 2
 
 /**
  * Detects touch-primary devices via `(hover: none)` media query — the modern, hybrid-safe
@@ -39,9 +38,9 @@ function useIsTouchDevice(): boolean {
     return touch
 }
 
-function GridSkeleton({columns, count}: {columns: number; count: number}) {
+function GridSkeleton({count}: {count: number}) {
     return (
-        <div style={{display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gap: '12px'}}>
+        <div style={{display: 'grid', gridTemplateColumns: `repeat(${COLUMNS}, 1fr)`, gap: '12px'}}>
             {Array.from({length: count}).map((_, i) => (
                 <MSkeleton
                     key={i}
@@ -83,7 +82,6 @@ function BurstTile({burst, autoplayOnTouch}: {burst: PhotoBurst; autoplayOnTouch
 
 export function AlbumMotionGallery({
     photos,
-    columns,
     hasMore,
     loading,
     onLoadMore,
@@ -91,19 +89,17 @@ export function AlbumMotionGallery({
     skeletonCount = 12,
 }: AlbumMotionGalleryProps) {
     const isTouch = useIsTouchDevice()
-    const isMobile = useIsMobile()
-    const effectiveColumns = columns ?? (isMobile ? 2 : 3)
     const bursts = useMemo(() => groupPhotosIntoBursts(photos), [photos])
 
     const showLoadMore = typeof onLoadMore === 'function'
     const showSkeleton = loading === true && photos.length === 0
 
     if (showSkeleton) {
-        return <GridSkeleton columns={effectiveColumns} count={skeletonCount} />
+        return <GridSkeleton count={skeletonCount} />
     }
 
     const grid = (
-        <div style={{display: 'grid', gridTemplateColumns: `repeat(${effectiveColumns}, 1fr)`, gap: '12px'}}>
+        <div style={{display: 'grid', gridTemplateColumns: `repeat(${COLUMNS}, 1fr)`, gap: '12px'}}>
             {bursts.map((b) => (
                 <BurstTile key={b.lead.id} burst={b} autoplayOnTouch={isTouch} />
             ))}
