@@ -1,7 +1,7 @@
 {
     "name": "react-vision",
     "private": true,
-    "version": "1.4.1",
+    "version": "1.4.2",
     "type": "module",
     "homepage": "https://vision.banzamel.pl",
     "scripts": {
@@ -12,7 +12,7 @@
         "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\""
     },
     "dependencies": {
-        "@banzamel/mineralui-pro": "^1.8.1",
+        "@banzamel/mineralui-pro": "^1.9.1",
         "laravel-echo": "^2.2.0",
         "pusher-js": "^8.4.0",
         "react": "^19.2.4",
