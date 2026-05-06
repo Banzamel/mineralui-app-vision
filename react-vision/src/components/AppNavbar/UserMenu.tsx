@@ -45,9 +45,7 @@ export function UserMenu() {
                         name={user.name}
                         size={36}
                         color={'primary'}
-                        badge
-                        badgeColor={'success'}
-                        badgePulsing
+                        presence={'online'}
                     />
                 }
             >
