@@ -2,6 +2,7 @@
 
 namespace Albums\Services;
 
+use Albums\Enums\RetentionPolicyEnum;
 use Albums\Events\AlbumCreatedEvent;
 use Albums\Events\PhotoAddedEvent;
 use Albums\Models\Album;
@@ -54,6 +55,9 @@ class AlbumSyncService implements AlbumSyncServiceInterface
             $dayName = basename($dayPath);
             $date = $this->parseDate($dayName);
             if ($date === null) {
+                continue;
+            }
+            if ($this->isExpiredDate($date)) {
                 continue;
             }
 
@@ -209,5 +213,17 @@ class AlbumSyncService implements AlbumSyncServiceInterface
             return null;
         }
         return Carbon::create($year, $month, $day)->format('Y-m-d');
+    }
+
+    /**
+     * Stops sync from resurrecting directories that are already older than the retention policy.
+     *
+     * @param string $date Parsed album date in Y-m-d format.
+     * @return bool True when the date is older than the current retention cutoff.
+     */
+    protected function isExpiredDate(string $date): bool
+    {
+        $cutoff = Carbon::today()->subDays(RetentionPolicyEnum::DefaultDays->value)->format('Y-m-d');
+        return $date < $cutoff;
     }
 }

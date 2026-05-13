@@ -7,10 +7,15 @@ use Albums\Repositories\Interfaces\AlbumRepositoryInterface;
 use Albums\Repositories\Interfaces\PhotoRepositoryInterface;
 use Albums\Services\RetentionService;
 use FileManager\Dtos\DeleteItemDto;
+use FileManager\Enums\StoragesEnum;
+use FileManager\Models\FileManagerPath;
 use FileManager\Services\Interfaces\FileManagerServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Mockery;
+use Objects\Models\Camera;
+use Objects\Repositories\Interfaces\CameraRepositoryInterface;
 use Tests\TestCase;
 
 class RetentionServiceTest extends TestCase
@@ -18,6 +23,7 @@ class RetentionServiceTest extends TestCase
     private AlbumRepositoryInterface $albums;
     private PhotoRepositoryInterface $photos;
     private FileManagerServiceInterface $fileManager;
+    private CameraRepositoryInterface $cameras;
     private RetentionService $service;
 
     protected function setUp(): void
@@ -27,7 +33,8 @@ class RetentionServiceTest extends TestCase
         $this->albums = Mockery::mock(AlbumRepositoryInterface::class);
         $this->photos = Mockery::mock(PhotoRepositoryInterface::class);
         $this->fileManager = Mockery::mock(FileManagerServiceInterface::class);
-        $this->service = new RetentionService($this->albums, $this->photos, $this->fileManager);
+        $this->cameras = Mockery::mock(CameraRepositoryInterface::class);
+        $this->service = new RetentionService($this->albums, $this->photos, $this->fileManager, $this->cameras);
 
         // Each iteration wraps work in DB::transaction; collapse to direct execution.
         DB::shouldReceive('transaction')->andReturnUsing(fn($cb) => $cb());
@@ -63,18 +70,32 @@ class RetentionServiceTest extends TestCase
         $this->assertSame(1, $this->service->purge(7));
     }
 
-    public function test_purge_skips_file_manager_when_album_has_no_path(): void
+    public function test_purge_deletes_directory_by_camera_path_when_album_has_no_path_id(): void
     {
         $album = new Album();
         $album->id = 2;
+        $album->camera_id = 8;
+        $album->folder_name = '2026-05-01';
         $album->file_manager_path_id = null;
 
+        $camera = new Camera();
+        $camera->file_manager_path_id = 77;
+
+        $root = new FileManagerPath();
+        $root->path = '1/cam-8';
+        $root->storage = StoragesEnum::local;
+
+        Storage::fake('local');
+        Storage::disk('local')->makeDirectory('1/cam-8/2026-05-01');
         $this->albums->shouldReceive('olderThan')->once()->andReturn(new Collection([$album]));
         $this->photos->shouldReceive('deleteByAlbum')->once()->with(2);
         $this->fileManager->shouldNotReceive('deleteItem');
+        $this->cameras->shouldReceive('findOrFail')->once()->with(8)->andReturn($camera);
+        $this->fileManager->shouldReceive('getItem')->once()->andReturn($root);
         $this->albums->shouldReceive('delete')->once()->with($album);
 
         $this->assertSame(1, $this->service->purge(7));
+        Storage::disk('local')->assertMissing('1/cam-8/2026-05-01');
     }
 
     public function test_purge_returns_count_for_multiple_albums(): void

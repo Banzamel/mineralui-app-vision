@@ -5,9 +5,14 @@ namespace Tests\Unit\Services\Albums;
 use Albums\Repositories\Interfaces\AlbumRepositoryInterface;
 use Albums\Repositories\Interfaces\PhotoRepositoryInterface;
 use Albums\Services\AlbumSyncService;
+use FileManager\Enums\StoragesEnum;
+use FileManager\Models\FileManagerPath;
 use FileManager\Services\Interfaces\FileManagerServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Mockery;
+use Objects\Models\Camera;
 use Objects\Repositories\Interfaces\CameraRepositoryInterface;
 use ReflectionClass;
 use Tests\TestCase;
@@ -39,6 +44,7 @@ class AlbumSyncServiceTest extends TestCase
 
     protected function tearDown(): void
     {
+        Carbon::setTestNow();
         Mockery::close();
         parent::tearDown();
     }
@@ -113,6 +119,45 @@ class AlbumSyncServiceTest extends TestCase
         $this->cameras->shouldReceive('all')->once()->andReturn(new Collection([$cameraA, $cameraB]));
 
         $this->assertSame(0, $this->service->syncAll());
+    }
+
+    public function test_sync_camera_skips_directories_older_than_retention_window(): void
+    {
+        Carbon::setTestNow(Carbon::create(2026, 5, 13, 12, 0, 0));
+        Storage::fake('local');
+        Storage::disk('local')->makeDirectory('1/cam-1/2026-05-05');
+        Storage::disk('local')->makeDirectory('1/cam-1/2026-05-10');
+
+        $camera = new Camera();
+        $camera->id = 2;
+        $camera->company_id = 1;
+        $camera->file_manager_path_id = 10;
+
+        $root = new FileManagerPath();
+        $root->path = '1/cam-1';
+        $root->storage = StoragesEnum::local;
+
+        $album = new \Albums\Models\Album();
+        $album->id = 44;
+        $album->company_id = 1;
+        $album->camera_id = 2;
+        $album->file_manager_path_id = 90;
+        $album->photos_count = 0;
+
+        $this->fileManager->shouldReceive('getItem')->once()->andReturn($root);
+        $this->albums
+            ->shouldReceive('firstOrCreate')
+            ->once()
+            ->with(Mockery::on(function (array $data): bool {
+                return $data['camera_id'] === 2
+                    && $data['date'] === '2026-05-10'
+                    && $data['folder_name'] === '2026-05-10';
+            }))
+            ->andReturn($album);
+        $this->albums->shouldNotReceive('update');
+        $this->photos->shouldNotReceive('upsertByFilename');
+
+        $this->assertSame(0, $this->service->syncCamera($camera));
     }
 
     /**

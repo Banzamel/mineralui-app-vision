@@ -10,4 +10,4 @@ Artisan::command('inspire', function () {
 
 // Vision scheduler — synchronizacja albumów co 5 minut, retencja raz dziennie o 3:00
 Schedule::command('vision:albums:sync')->everyFiveMinutes()->withoutOverlapping()->runInBackground();
-Schedule::command('vision:albums:retention')->dailyAt('03:00');
+Schedule::command('vision:albums:retention')->dailyAt('03:00')->timezone('Europe/Warsaw');
